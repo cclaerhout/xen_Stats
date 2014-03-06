@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="sedo_stats" title="BBM - Stats Bb Codes" version_string="1.0" version_id="0" url="" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates>
+    <template title="option_sedo_stats_sprintf"><![CDATA[<xen:require css="option_sedo_stats_sprintf.css" />
+<xen:require js="js/sedo/stats/admin/options.js" />
+
+<xen:controlunit label="{$preparedOption.title}" hint="{$preparedOption.hint}">
+	<xen:explain>{xen:raw $preparedOption.explain}</xen:explain>
+	<xen:html>
+		<ul>
+			<xen:foreach loop="$configs" key="$counter" value="$config" i="$i">
+			<li class="config_unit">
+				<dl class="ctrlUnit bbm_stats_ticks_sprintf">
+					<dt><label>{xen:if '{$config.key}', '[<b>{$config.key}</b>]'}</label></dt>
+					<dd><xen:textbox 
+						name="{$fieldPrefix}[{$preparedOption.option_id}][{$counter}][key]"
+						value="{$config.key}"
+						placeholder="{xen:phrase sedo_stats_ticks_sprintf_key}" 
+						size="10"
+					/> - <xen:textbox 
+						name="{$fieldPrefix}[{$preparedOption.option_id}][{$counter}][code]"
+						value="{$config.code}"
+						placeholder="{xen:phrase sedo_stats_ticks_sprintf_code}" 
+						size="20"
+					/></dd>
+				</dl>
+			</li>
+			</xen:foreach>
+			
+			<li class="BbmStatsSprintfOption config_unit_new">
+				<dl class="ctrlUnit bbm_stats_ticks_sprintfkey">
+					<dt><label></label></dt>
+					<dd><xen:textbox 
+						name="{$fieldPrefix}[{$preparedOption.option_id}][{$nextCounter}][key]"
+						value="{$config.key}"
+						placeholder="{xen:phrase sedo_stats_ticks_sprintf_key}" 
+						size="10"
+					/> - <xen:textbox 
+						name="{$fieldPrefix}[{$preparedOption.option_id}][{$nextCounter}][code]"
+						value="{$config.code}"
+						placeholder="{xen:phrase sedo_stats_ticks_sprintf_code}" 
+						size="20"
+					/></dd>
+				</dl>
+			</li>
+		</ul>
+		
+		<input type="hidden" name="{$listedFieldName}" value="{$preparedOption.option_id}" />
+		{xen:raw $editLink}
+	</xen:html>
+</xen:controlunit>]]></template>
+    <template title="option_sedo_stats_sprintf.css"><![CDATA[.config_unit {
+	{xen:property secondaryContent.background};
+	padding: 2px;
+}
+
+.config_unit_new {
+	{xen:property subHeading.background};
+	padding: 2px;
+}]]></template>
+  </admin_templates>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="bbm_callback_template_pre" execute_order="10" callback_class="Sedo_Stats_Listener_Pie" callback_method="pieRenderer" active="1" hint="sedo_stats_pie" description="Bbm pie renderer"/>
+    <listener event_id="bbm_callback_template_pre" execute_order="10" callback_class="Sedo_Stats_Listener_Bar" callback_method="barRenderer" active="1" hint="sedo_stats_bar" description="Bbm bar renderer"/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups>
+    <group group_id="sedo_bbcode_stats" display_order="13216" debug_only="0"/>
+    <option option_id="sedo_stats_default_legend_pos" edit_format="select" data_type="string" can_backup="1">
+      <default_value>e</default_value>
+      <edit_format_params>no={xen:phrase sedo_stats_no_legend}
+nw={xen:phrase sedo_stats_legend_nw}
+n={xen:phrase sedo_stats_legend_n}
+ne={xen:phrase sedo_stats_legend_ne}
+e={xen:phrase sedo_stats_legend_e}
+se={xen:phrase sedo_stats_legend_se}
+s={xen:phrase sedo_stats_legend_s}
+sw={xen:phrase sedo_stats_legend_sw}
+w={xen:phrase sedo_stats_legend_w}
+nw-outside={xen:phrase sedo_stats_legend_outside} - {xen:phrase sedo_stats_legend_nw}
+n-outside={xen:phrase sedo_stats_legend_outside} - {xen:phrase sedo_stats_legend_n}
+ne-outside={xen:phrase sedo_stats_legend_outside} - {xen:phrase sedo_stats_legend_ne}
+e-outside={xen:phrase sedo_stats_legend_outside} - {xen:phrase sedo_stats_legend_e}
+se-outside={xen:phrase sedo_stats_legend_outside} - {xen:phrase sedo_stats_legend_se}
+s-outside={xen:phrase sedo_stats_legend_outside} - {xen:phrase sedo_stats_legend_s}
+sw-outside={xen:phrase sedo_stats_legend_outside} - {xen:phrase sedo_stats_legend_sw}
+w-outside={xen:phrase sedo_stats_legend_outside} - {xen:phrase sedo_stats_legend_w}</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="sedo_bbcode_stats" display_order="250"/>
+    </option>
+    <option option_id="sedo_stats_default_tick_angle" edit_format="spinbox" data_type="integer" can_backup="1">
+      <default_value>-30</default_value>
+      <edit_format_params>min=-180
+max=180
+step=10</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="sedo_bbcode_stats" display_order="210"/>
+    </option>
+    <option option_id="sedo_stats_default_zoom" edit_format="select" data_type="boolean" can_backup="1">
+      <default_value>0</default_value>
+      <edit_format_params>0={xen:phrase no}
+1={xen:phrase yes}</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="sedo_bbcode_stats" display_order="200"/>
+    </option>
+    <option option_id="sedo_stats_sprintf" edit_format="callback" data_type="array" can_backup="1" validation_class="Sedo_Stats_Option_Factory" validation_method="verify_sprintf">
+      <default_value>a:2:{s:6:"dollar";s:4:"$%'d";s:4:"euro";s:6:"%d €";}</default_value>
+      <edit_format_params>Sedo_Stats_Option_Factory::render_sprintf</edit_format_params>
+      <sub_options>*</sub_options>
+      <relation group_id="sedo_bbcode_stats" display_order="50"/>
+    </option>
+  </optiongroups>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="option_group_sedo_bbcode_stats" version_id="0" version_string="1.0"><![CDATA[[BBM] Stats]]></phrase>
+    <phrase title="option_group_sedo_bbcode_stats_description" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="option_sedo_stats_default_legend_pos" version_id="0" version_string="1.0"><![CDATA[Default legend position]]></phrase>
+    <phrase title="option_sedo_stats_default_legend_pos_explain" version_id="0" version_string="1.0"><![CDATA[Select here the default position of your legend. This setting can be directly modified in the main tag options using the command "legend:" followed by one of these options: "no" (for no legend) or the cardinal direction: "nw, n, ne, e, se, s, sw, w" or "nw-outside, n-outside, ne-outside, e-outside, se-outside, s-outside, sw-outside, w-outside" (if you want the legend outside of your chart). Default: "e" (east).]]></phrase>
+    <phrase title="option_sedo_stats_default_tick_angle" version_id="0" version_string="1.0"><![CDATA[Default tick angle]]></phrase>
+    <phrase title="option_sedo_stats_default_tick_angle_explain" version_id="0" version_string="1.0"><![CDATA[By default, every axis (for Bb Codes which have axis) are using the tick renderer. This tick renderer enables to customize the appearance of the axis data. This setting can also be setup in the options of the main Bb Code or in the axis special tags (xaxis, yaxis, x2axis, y2axis) using the command 'tick-angle:' then the angle you want.  Example: [bar=tick-angle:10]...[/bar].]]></phrase>
+    <phrase title="option_sedo_stats_default_zoom" version_id="0" version_string="1.0"><![CDATA[Enable the zoom by default?]]></phrase>
+    <phrase title="option_sedo_stats_default_zoom_explain" version_id="0" version_string="1.0"><![CDATA[The zoom option is not available for all charts Bb Codes. If you don't enable the zoom by default, you can still enable it in the main tag option using the command "zoom". Example: [bar=zoom]...[/bar].]]></phrase>
+    <phrase title="option_sedo_stats_sprintf" version_id="0" version_string="1.0"><![CDATA[String formatter]]></phrase>
+    <phrase title="option_sedo_stats_sprintf_explain" version_id="0" version_string="1.0"><![CDATA[The string formatter allows you to format some strings, for example, you can use the data (numeric) of an axis and format them as a string with some extra elements (ie: currency). The jqPlot  formatter is using a JavaScript version of sprintf created by Ash Searle  and modified by Chris Leonello (the author of jqPlot). See original perl commands <a href="http://perldoc.perl.org/functions/sprintf.html" target="_blank">here</a>. For more information, directly see the jqPlot source. <br />
+ <br />
+Example for axis:
+ <br />
+To use this formatter with your Bb Codes (supported: bar), you need to use the special axis tags (xaxis, yaxis, x2axis, y2axis). In their options, use the command "string:" and follow it with one of your above key code. Ie: {yaxis=string:dollar}My optional axis name{/yaxis}.]]></phrase>
+    <phrase title="sedo_stats_inserts_bar_chart" global_cache="1" version_id="0" version_string="1.0"><![CDATA[Inserts bar chart]]></phrase>
+    <phrase title="sedo_stats_inserts_pie_chart" global_cache="1" version_id="0" version_string="1.0"><![CDATA[Inserts a pie chart]]></phrase>
+    <phrase title="sedo_stats_js_required" version_id="0" version_string="1.0"><![CDATA[JavaScript is required to display charts.]]></phrase>
+    <phrase title="sedo_stats_legend_e" version_id="0" version_string="1.0"><![CDATA[East]]></phrase>
+    <phrase title="sedo_stats_legend_n" version_id="0" version_string="1.0"><![CDATA[North]]></phrase>
+    <phrase title="sedo_stats_legend_ne" version_id="0" version_string="1.0"><![CDATA[North east]]></phrase>
+    <phrase title="sedo_stats_legend_nw" version_id="0" version_string="1.0"><![CDATA[North west]]></phrase>
+    <phrase title="sedo_stats_legend_outside" version_id="0" version_string="1.0"><![CDATA[Outside]]></phrase>
+    <phrase title="sedo_stats_legend_s" version_id="0" version_string="1.0"><![CDATA[South]]></phrase>
+    <phrase title="sedo_stats_legend_se" version_id="0" version_string="1.0"><![CDATA[South east]]></phrase>
+    <phrase title="sedo_stats_legend_sw" version_id="0" version_string="1.0"><![CDATA[South west]]></phrase>
+    <phrase title="sedo_stats_legend_w" version_id="0" version_string="1.0"><![CDATA[West]]></phrase>
+    <phrase title="sedo_stats_no_legend" version_id="0" version_string="1.0"><![CDATA[No legend]]></phrase>
+    <phrase title="sedo_stats_series" global_cache="1" version_id="0" version_string="1.0"><![CDATA[Series]]></phrase>
+    <phrase title="sedo_stats_ticks_sprintf_code" version_id="0" version_string="1.0"><![CDATA[Key code (sprintf)]]></phrase>
+    <phrase title="sedo_stats_ticks_sprintf_key" version_id="0" version_string="1.0"><![CDATA[Key trigger]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_maxheight_description_master" version_id="0" version_string="1.0"><![CDATA[Maximum pixels value to use with user custom height from Bb Code options. Default: 600. Don't add 'px' here.]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_maxheight_master" version_id="0" version_string="1.0"><![CDATA[Bb Code Options - Maximum height]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_maxwidth_description_master" version_id="0" version_string="1.0"><![CDATA[Maximum pixels value to use with user custom width from Bb Code options. Default: 580. Don't add 'px' here.]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_maxwidth_master" version_id="0" version_string="1.0"><![CDATA[Bb Code Options - Maximum width]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_minheight_description_master" version_id="0" version_string="1.0"><![CDATA[Minimum pixels value to use with user custom height from Bb Code options. Default: 200. Don't add 'px' here.]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_minheight_master" version_id="0" version_string="1.0"><![CDATA[Bb Code Options - Minimum height]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_minwidth_description_master" version_id="0" version_string="1.0"><![CDATA[Minimum pixels value to use with user custom width from Bb Code options. Default: 380. Don't add 'px' here.]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_minwidth_master" version_id="0" version_string="1.0"><![CDATA[Bb Code Options - Minimum width]]></phrase>
+    <phrase title="style_property_bbm_stats_color_10_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_10_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 10]]></phrase>
+    <phrase title="style_property_bbm_stats_color_11_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_11_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 11]]></phrase>
+    <phrase title="style_property_bbm_stats_color_12_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_12_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 12]]></phrase>
+    <phrase title="style_property_bbm_stats_color_2_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_2_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 02]]></phrase>
+    <phrase title="style_property_bbm_stats_color_3_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_3_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 03]]></phrase>
+    <phrase title="style_property_bbm_stats_color_4_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_4_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 04]]></phrase>
+    <phrase title="style_property_bbm_stats_color_5_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_5_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 05]]></phrase>
+    <phrase title="style_property_bbm_stats_color_6_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_6_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 06]]></phrase>
+    <phrase title="style_property_bbm_stats_color_7_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_7_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 07]]></phrase>
+    <phrase title="style_property_bbm_stats_color_8_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_8_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 08]]></phrase>
+    <phrase title="style_property_bbm_stats_color_9_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_9_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 09]]></phrase>
+    <phrase title="style_property_bbm_stats_data_label_description_master" version_id="0" version_string="1.0"><![CDATA[Use this option to style the labels of the stats data]]></phrase>
+    <phrase title="style_property_bbm_stats_data_label_master" version_id="0" version_string="1.0"><![CDATA[Data label]]></phrase>
+    <phrase title="style_property_bbm_stats_defaultheight_description_master" version_id="0" version_string="1.0"><![CDATA[Default: 300px.]]></phrase>
+    <phrase title="style_property_bbm_stats_defaultheight_master" version_id="0" version_string="1.0"><![CDATA[Stats - Default height]]></phrase>
+    <phrase title="style_property_bbm_stats_defaultwidth_description_master" version_id="0" version_string="1.0"><![CDATA[You can use pixels or percent here. Default: 520px.]]></phrase>
+    <phrase title="style_property_bbm_stats_defaultwidth_master" version_id="0" version_string="1.0"><![CDATA[Stats - Default width]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_bgcolor_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_bgcolor_master" version_id="0" version_string="1.0"><![CDATA[Grid - Background-color]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_bordercolor_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_bordercolor_master" version_id="0" version_string="1.0"><![CDATA[Grid - Border color]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_borderwidth_description_master" version_id="0" version_string="1.0"><![CDATA[Unit is pixel. Default: 1.5.]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_borderwidth_master" version_id="0" version_string="1.0"><![CDATA[Grid - Border width]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_gridline_color_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_gridline_color_master" version_id="0" version_string="1.0"><![CDATA[Grid - Gridline color]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_shadow_alpha_description_master" version_id="0" version_string="1.0"><![CDATA[Manage here the shadow opacity. Default: 0.07.]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_shadow_alpha_master" version_id="0" version_string="1.0"><![CDATA[Grid - Display shadow alpha]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_shadow_width_description_master" version_id="0" version_string="1.0"><![CDATA[Unit is pixels. Default: 1.5]]></phrase>
+    <phrase title="style_property_bbm_stats_grid_shadow_width_master" version_id="0" version_string="1.0"><![CDATA[Grid - Display shadow width]]></phrase>
+    <phrase title="style_property_bbm_stats_legend_table_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_legend_table_master" version_id="0" version_string="1.0"><![CDATA[Legend table]]></phrase>
+    <phrase title="style_property_bbm_stats_maxheight_description_master" version_id="0" version_string="1.0"><![CDATA[Default: 600px.]]></phrase>
+    <phrase title="style_property_bbm_stats_maxheight_master" version_id="0" version_string="1.0"><![CDATA[Stats - Maximum height]]></phrase>
+    <phrase title="style_property_bbm_stats_maxwidth_description_master" version_id="0" version_string="1.0"><![CDATA[You can use pixels or percent here. Default: 100%.]]></phrase>
+    <phrase title="style_property_bbm_stats_maxwidth_master" version_id="0" version_string="1.0"><![CDATA[Stats - Maximum width]]></phrase>
+    <phrase title="style_property_bbm_stats_minwidth_description_master" version_id="0" version_string="1.0"><![CDATA[The JS script will update the size of the graph to the size of the screen (only on window load). But on small screens, its size can then be too small. Set here the graph min-width (with overflow). Default: 380px.]]></phrase>
+    <phrase title="style_property_bbm_stats_minwidth_master" version_id="0" version_string="1.0"><![CDATA[Stats - Minimum width]]></phrase>
+    <phrase title="style_property_bbm_stats_title_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_title_master" version_id="0" version_string="1.0"><![CDATA[Title]]></phrase>
+    <phrase title="style_property_group_sedo_bbm_stats_master" version_id="0" version_string="1.0"><![CDATA[[Bb Codes & Buttons Manager] Stats Bb Code]]></phrase>
+    <phrase title="style_property_group_sedo_bbm_stats_master_desc" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties>
+    <property property_name="bbm_stats_color_2" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 02" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="27810002" sub_group="bbm_stats"><![CDATA[rgb(197,190,127)]]></property>
+    <property property_name="bbm_stats_color_3" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 03" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="27810003" sub_group="bbm_stats"><![CDATA[rgb(234,192,40)]]></property>
+    <property property_name="bbm_stats_color_4" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 04" description="" css_components="text,background,border,layout,extra" scalar_type="color" scalar_parameters="" display_order="27810004" sub_group="bbm_stats"><![CDATA[rgb(87,149,126)]]></property>
+    <property property_name="bbm_stats_color_5" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 05" description="" css_components="" scalar_type="" scalar_parameters="" display_order="27810005" sub_group="bbm_stats"><![CDATA[rgb(122,149,87)]]></property>
+    <property property_name="bbm_stats_color_6" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 06" description="" css_components="text,background,border,layout,extra" scalar_type="color" scalar_parameters="" display_order="27810006" sub_group="bbm_stats"><![CDATA[rgb(138,149,18)]]></property>
+    <property property_name="bbm_stats_color_7" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 07" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="27810007" sub_group="bbm_stats"><![CDATA[rgb(149,53,106)]]></property>
+    <property property_name="bbm_stats_color_8" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 08" description="" css_components="" scalar_type="" scalar_parameters="" display_order="27810008" sub_group="bbm_stats"><![CDATA[rgb(80,75,228)]]></property>
+    <property property_name="bbm_stats_color_9" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 09" description="" css_components="" scalar_type="color" scalar_parameters="#d8b83f" display_order="27810009" sub_group="bbm_stats"><![CDATA[rgb(216,206,63)]]></property>
+    <property property_name="bbm_stats_color_10" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 10" description="" css_components="text,background,border,layout,extra" scalar_type="color" scalar_parameters="" display_order="27810010" sub_group="bbm_stats"><![CDATA[rgb(255,128,0)]]></property>
+    <property property_name="bbm_stats_color_11" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 11" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="27810011" sub_group="bbm_stats"><![CDATA[rgb(0,102,204)]]></property>
+    <property property_name="bbm_stats_color_12" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 12" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="27810012" sub_group="bbm_stats"><![CDATA[rgb(222,25,160)]]></property>
+    <property property_name="bbm_stats_data_label" property_type="css" definition="1" group_name="sedo_bbm_stats" title="Data label" description="Use this option to style the labels of the stats data" css_components="text,background,border,layout,extra" scalar_type="" scalar_parameters="" display_order="10" sub_group=""><![CDATA[{"extra":"text-shadow: #FFFFFF 1px 0px 2px;","font-size":"10pt","font-style":"italic"}]]></property>
+    <property property_name="bbm_stats_legend_table" property_type="css" definition="1" group_name="sedo_bbm_stats" title="Legend table" description="" css_components="text,background,border,layout,extra" scalar_type="" scalar_parameters="" display_order="20" sub_group=""><![CDATA[{"border-radius":"6px","padding-all":"3px"}]]></property>
+    <property property_name="bbm_stats_title" property_type="css" definition="1" group_name="sedo_bbm_stats" title="Title" description="" css_components="text,background,border,layout,extra" scalar_type="" scalar_parameters="" display_order="5" sub_group=""><![CDATA[{"color":"@primaryMedium","extra":"top: 0px;\nleft: 0px;","font-size":"1.2em","padding-bottom":"0.5em"}]]></property>
+    <property property_name="bbm_stats_grid_bgcolor" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Grid - Background-color" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="1000" sub_group="grid"><![CDATA[@primaryLightest]]></property>
+    <property property_name="bbm_stats_grid_bordercolor" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Grid - Border color" description="" css_components="text,background,border,layout,extra" scalar_type="color" scalar_parameters="" display_order="1010" sub_group="grid"><![CDATA[@primaryMedium]]></property>
+    <property property_name="bbm_stats_grid_borderwidth" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Grid - Border width" description="Unit is pixel. Default: 1.5." css_components="" scalar_type="" scalar_parameters="" display_order="1020" sub_group="grid"><![CDATA[1.5]]></property>
+    <property property_name="bbm_stats_grid_shadow_width" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Grid - Display shadow width" description="Unit is pixels. Default: 1.5" css_components="" scalar_type="" scalar_parameters="" display_order="1050" sub_group="grid"><![CDATA[1.5]]></property>
+    <property property_name="bbm_stats_grid_shadow_alpha" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Grid - Display shadow alpha" description="Manage here the shadow opacity. Default: 0.07." css_components="" scalar_type="" scalar_parameters="" display_order="1060" sub_group="grid"><![CDATA[0.07]]></property>
+    <property property_name="bbm_stats_minwidth" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Stats - Minimum width" description="The JS script will update the size of the graph to the size of the screen (only on window load). But on small screens, its size can then be too small. Set here the graph min-width (with overflow). Default: 380px." css_components="" scalar_type="number" scalar_parameters="" display_order="2500" sub_group="stats"><![CDATA[380px]]></property>
+    <property property_name="bbm_stats_maxwidth" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Stats - Maximum width" description="You can use pixels or percent here. Default: 100%." css_components="" scalar_type="number" scalar_parameters="" display_order="2510" sub_group="stats"><![CDATA[100%]]></property>
+    <property property_name="bbm_stats_bbcode_maxwidth" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Bb Code Options - Maximum width" description="Maximum pixels value to use with user custom width from Bb Code options. Default: 580. Don't add 'px' here." css_components="" scalar_type="number" scalar_parameters="" display_order="3200" sub_group="bbcode"><![CDATA[700]]></property>
+    <property property_name="bbm_stats_defaultwidth" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Stats - Default width" description="You can use pixels or percent here. Default: 520px." css_components="text,background,border,layout,extra" scalar_type="number" scalar_parameters="520px" display_order="2520" sub_group="stats"><![CDATA[520px]]></property>
+    <property property_name="bbm_stats_bbcode_minwidth" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Bb Code Options - Minimum width" description="Minimum pixels value to use with user custom width from Bb Code options. Default: 380. Don't add 'px' here." css_components="" scalar_type="number" scalar_parameters="" display_order="3200" sub_group="bbcode"><![CDATA[380]]></property>
+    <property property_name="bbm_stats_maxheight" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Stats - Maximum height" description="Default: 600px." css_components="" scalar_type="number" scalar_parameters="" display_order="2530" sub_group="stats"><![CDATA[600px]]></property>
+    <property property_name="bbm_stats_defaultheight" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Stats - Default height" description="Default: 300px." css_components="" scalar_type="number" scalar_parameters="" display_order="2540" sub_group="stats"><![CDATA[300px]]></property>
+    <property property_name="bbm_stats_bbcode_minheight" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Bb Code Options - Minimum height" description="Minimum pixels value to use with user custom height from Bb Code options. Default: 200. Don't add 'px' here." css_components="text,background,border,layout,extra" scalar_type="number" scalar_parameters="" display_order="3220" sub_group="bbcode"><![CDATA[200]]></property>
+    <property property_name="bbm_stats_bbcode_maxheight" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Bb Code Options - Maximum height" description="Maximum pixels value to use with user custom height from Bb Code options. Default: 600. Don't add 'px' here." css_components="" scalar_type="number" scalar_parameters="" display_order="3230" sub_group="bbcode"><![CDATA[600]]></property>
+    <property property_name="bbm_stats_grid_gridline_color" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Grid - Gridline color" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="1005" sub_group="grid"><![CDATA[#cccccc]]></property>
+    <group group_name="sedo_bbm_stats" display_order="13213">
+      <title>[Bb Codes &amp; Buttons Manager] Stats Bb Code</title>
+      <description></description>
+    </group>
+  </style_properties>
+  <templates>
+    <template title="bbm_stats_bar" version_id="0" version_string="1.0"><![CDATA[<xen:if is="{$visitor.getBrowser.isIE} AND {$visitor.getBrowser.IEis} < 9">
+	<xen:require js="js/sedo/stats/bbm_5_excanvas.min.js" />
+</xen:if>
+
+<xen:require js="js/sedo/stats/jqplot/bbm_6_jquery.jqplot.min.js" />
+
+<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.dateAxisRenderer.min.js" />
+<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.canvasTextRenderer.min.js" />
+<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js" />
+<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.categoryAxisRenderer.min.js" />
+<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.barRenderer.min.js" />
+
+<xen:if is="{$options.zoom}">
+	<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.cursor.min.js" />
+</xen:if>
+
+<xen:if is="{$options.highlighter}">
+	<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.highlighter.min.js" />
+</xen:if>
+
+<xen:if is="{$options.pointLabels}">
+	<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.pointLabels.min.js" />
+</xen:if>
+
+<xen:require js="js/sedo/stats/bbm_z_loader.min.js" />
+
+<xen:require css="bbm_stats_jqplot.css" />
+<xen:require css="bbm_stats_bar.css" />
+
+<div class="bbmStatsContainer {$options.floatClass}">
+	<div id="{$options.uniqid}"
+		style="{$options.inlineCss}"
+		class="stats bbm_stats_bar {$options.blockClass} bbmStatsInit JsOnly"
+		data-stats="{xen:escape {xen:helper json, $options.data}}"
+		data-config="{xen:escape {xen:helper json, $options.config}}"
+	></div>
+	<noscript>{xen:phrase sedo_stats_js_required}</noscript>
+</div>]]></template>
+    <template title="bbm_stats_bar.css" version_id="0" version_string="1.0"><![CDATA[]]></template>
+    <template title="bbm_stats_jqplot.css" version_id="0" version_string="1.0"><![CDATA[.bbmStatsContainer{
+	overflow:auto;
+}
+
+.bbmStatsContainer > .stats.bleft {
+	margin-right:auto;
+}
+
+.bbmStatsContainer > .stats.bcenter {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.bbmStatsContainer > .stats.bright {
+	margin-left:auto;
+}
+
+.bbmStatsContainer.fright{
+	float:right;
+	margin-left: 8px;
+	margin-right: 4px;
+}
+
+.bbmStatsContainer.fleft{
+	float:left;
+	margin-left: 4px;
+	margin-right: 8px;
+}
+
+.bbmStatsContainer .jqplot-target {
+	position: relative;
+	color: #666666;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	
+	min-width: {xen:property bbm_stats_minwidth};
+	max-width: {xen:property bbm_stats_maxwidth};
+	width: {xen:property bbm_stats_defaultwidth};
+	
+	max-height: {xen:property bbm_stats_maxheight};
+	height: {xen:property bbm_stats_defaultheight};
+}
+
+/*rules applied to all axes*/
+.bbmStatsContainer .jqplot-axis {
+	font-size: 0.75em;
+}
+
+.bbmStatsContainer .jqplot-xaxis {
+	margin-top: 10px;
+}
+
+.bbmStatsContainer .jqplot-x2axis {
+	margin-bottom: 10px;
+}
+
+.bbmStatsContainer .jqplot-yaxis {
+	margin-right: 10px;
+}
+
+.bbmStatsContainer .jqplot-y2axis, .jqplot-y3axis, .jqplot-y4axis, .jqplot-y5axis, .jqplot-y6axis, .jqplot-y7axis, .jqplot-y8axis, .jqplot-y9axis, .jqplot-yMidAxis {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/*rules applied to all axis tick divs*/
+.bbmStatsContainer .jqplot-axis-tick, .jqplot-xaxis-tick, .jqplot-yaxis-tick, .jqplot-x2axis-tick, .jqplot-y2axis-tick, .jqplot-y3axis-tick, .jqplot-y4axis-tick, .jqplot-y5axis-tick, .jqplot-y6axis-tick, .jqplot-y7axis-tick, .jqplot-y8axis-tick, .jqplot-y9axis-tick, .jqplot-yMidAxis-tick {
+	position: absolute;
+	white-space: pre;
+}
+
+.bbmStatsContainer .jqplot-xaxis-tick {
+	top: 0px;
+	/* initial position untill tick is drawn in proper place */
+	left: 15px;
+/*	padding-top: 10px;*/
+	vertical-align: top;
+}
+
+.bbmStatsContainer .jqplot-x2axis-tick {
+	bottom: 0px;
+	/* initial position untill tick is drawn in proper place */
+	left: 15px;
+/*	padding-bottom: 10px;*/
+	vertical-align: bottom;
+}
+
+.bbmStatsContainer .jqplot-yaxis-tick {
+	right: 0px;
+	/* initial position untill tick is drawn in proper place */
+	top: 15px;
+/*	padding-right: 10px;*/
+	text-align: right;
+}
+
+.bbmStatsContainer .jqplot-yaxis-tick.jqplot-breakTick {
+	right: -20px;
+	margin-right: 0px;
+	padding:1px 5px 1px 5px;
+	/*background-color: white;*/
+	z-index: 2;
+	font-size: 1.5em;
+}
+
+.bbmStatsContainer .jqplot-y2axis-tick, .jqplot-y3axis-tick, .jqplot-y4axis-tick, .jqplot-y5axis-tick, .jqplot-y6axis-tick, .jqplot-y7axis-tick, .jqplot-y8axis-tick, .jqplot-y9axis-tick {
+	left: 0px;
+	/* initial position untill tick is drawn in proper place */
+	top: 15px;
+/*	padding-left: 10px;*/
+/*	padding-right: 15px;*/
+	text-align: left;
+}
+
+.bbmStatsContainer .jqplot-yMidAxis-tick {
+	text-align: center;
+	white-space: nowrap;
+}
+
+.bbmStatsContainer .jqplot-xaxis-label {
+	margin-top: 10px;
+	font-size: 11pt;
+	position: absolute;
+}
+
+.bbmStatsContainer .jqplot-x2axis-label {
+	margin-bottom: 10px;
+	font-size: 11pt;
+	position: absolute;
+}
+
+.bbmStatsContainer .jqplot-yaxis-label {
+	margin-right: 10px;
+/*	text-align: center;*/
+	font-size: 11pt;
+	position: absolute;
+}
+
+.bbmStatsContainer .jqplot-yMidAxis-label {
+	font-size: 11pt;
+	position: absolute;
+}
+
+.bbmStatsContainer .jqplot-y2axis-label, .jqplot-y3axis-label, .jqplot-y4axis-label, .jqplot-y5axis-label, .jqplot-y6axis-label, .jqplot-y7axis-label, .jqplot-y8axis-label, .jqplot-y9axis-label {
+/*	text-align: center;*/
+	font-size: 11pt;
+	margin-left: 10px;
+	position: absolute;
+}
+
+.bbmStatsContainer .jqplot-meterGauge-tick {
+	font-size: 0.75em;
+	color: #999999;
+}
+
+.bbmStatsContainer .jqplot-meterGauge-label {
+	font-size: 1em;
+	color: #999999;
+}
+
+.bbmStatsContainer table.jqplot-table-legend {
+	margin-top: 12px;
+	margin-bottom: 12px;
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.bbmStatsContainer table.jqplot-table-legend, table.jqplot-cursor-legend {
+	background-color: rgba(255,255,255,0.6);
+	border: 1px solid #cccccc;
+	position: absolute;
+	font-size: 0.75em;
+}
+
+.bbmStatsContainer td.jqplot-table-legend {
+	vertical-align:middle;
+}
+
+/*
+These rules could be used instead of assigning
+element styles and relying on js object properties.
+*/
+
+/*
+.bbmStatsContainer td.jqplot-table-legend-swatch {
+	padding-top: 0.5em;
+	text-align: center;
+}
+
+.bbmStatsContainer tr.jqplot-table-legend:first td.jqplot-table-legend-swatch {
+	padding-top: 0px;
+}
+*/
+
+.bbmStatsContainer td.jqplot-seriesToggle:hover, td.jqplot-seriesToggle:active {
+	cursor: pointer;
+}
+
+.bbmStatsContainer .jqplot-table-legend .jqplot-series-hidden {
+	text-decoration: line-through;
+}
+
+.bbmStatsContainer div.jqplot-table-legend-swatch-outline {
+	border: 1px solid #cccccc;
+	padding:1px;
+}
+
+.bbmStatsContainer div.jqplot-table-legend-swatch {
+	width:0px;
+	height:0px;
+	border-top-width: 5px;
+	border-bottom-width: 5px;
+	border-left-width: 6px;
+	border-right-width: 6px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-style: solid;
+}
+
+.bbmStatsContainer .jqplot-title {
+	{xen:property bbm_stats_title}
+}
+
+.bbmStatsContainer table.jqplot-cursor-tooltip {
+	border: 1px solid #cccccc;
+	font-size: 0.75em;
+}
+
+.bbmStatsContainer .jqplot-cursor-tooltip {
+	border: 1px solid #cccccc;
+	font-size: 0.75em;
+	white-space: nowrap;
+	background: rgba(208,208,208,0.5);
+	padding: 1px;
+}
+
+.bbmStatsContainer .jqplot-highlighter-tooltip, .jqplot-canvasOverlay-tooltip {
+	border: 1px solid #cccccc;
+	font-size: 0.75em;
+	white-space: nowrap;
+	background: rgba(208,208,208,0.5);
+	padding: 1px;
+}
+
+.bbmStatsContainer .jqplot-point-label {
+	font-size: 0.75em;
+	z-index: 2;
+}
+	  
+.bbmStatsContainer td.jqplot-cursor-legend-swatch {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.bbmStatsContainer div.jqplot-cursor-legend-swatch {
+	width: 1.2em;
+	height: 0.7em;
+}
+
+.bbmStatsContainer .jqplot-error {
+/*   Styles added to the plot target container when there is an error go here.*/
+	text-align: center;
+}
+
+.bbmStatsContainer .jqplot-error-message {
+/*	Styling of the custom error message div goes here.*/
+	position: relative;
+	top: 46%;
+	display: inline-block;
+}
+
+.bbmStatsContainer div.jqplot-bubble-label {
+	font-size: 0.8em;
+/*	background: rgba(90%, 90%, 90%, 0.15);*/
+	padding-left: 2px;
+	padding-right: 2px;
+	color: rgb(20%, 20%, 20%);
+}
+
+.bbmStatsContainer div.jqplot-bubble-label.jqplot-bubble-label-highlight {
+	background: rgba(90%, 90%, 90%, 0.7);
+}
+
+.bbmStatsContainer div.jqplot-noData-container {
+	text-align: center;
+	background-color: rgba(96%, 96%, 96%, 0.3);
+}
+
+.bbmStatsContainer table{
+	border-collapse: separate;
+	border-spacing: 2px;
+}
+.bbmStatsContainer td{
+	border: 0;
+	padding: 0;
+}
+
+.bbmStatsContainer .jqplot-data-label{
+	{xen:property bbm_stats_data_label}
+}
+
+.bbmStatsContainer .jqplot-table-legend{
+	{xen:property bbm_stats_legend_table}
+}]]></template>
+    <template title="bbm_stats_pie" version_id="0" version_string="1.0"><![CDATA[<xen:if is="{$visitor.getBrowser.isIE} AND {$visitor.getBrowser.IEis} < 9">
+	<xen:require js="js/sedo/stats/bbm_5_excanvas.min.js" />
+</xen:if>
+
+<xen:require js="js/sedo/stats/jqplot/bbm_6_jquery.jqplot.min.js" />
+
+<xen:if is="{$options.renderer} == 'DonutRenderer'">
+	<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.donutRenderer.min.js" />
+<xen:else />
+	<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.pieRenderer.min.js" />
+</xen:if>
+
+<xen:require js="js/sedo/stats/bbm_z_loader.min.js" />
+
+<xen:require css="bbm_stats_jqplot.css" />
+<xen:require css="bbm_stats_pie.css" />
+
+<div class="bbmStatsContainer {$options.floatClass}">
+	<div id="{$options.uniqid}"
+		style="{$options.inlineCss}"
+		class="stats bbm_stats_pie {$options.blockClass} bbmStatsInit JsOnly"		
+		data-stats="{xen:escape {xen:helper json, $options.data}}"
+		data-config="{xen:escape {xen:helper json, $options.config}}"
+	></div>
+	<noscript>{xen:phrase sedo_stats_js_required}</noscript>
+</div>]]></template>
+    <template title="bbm_stats_pie.css" version_id="0" version_string="1.0"><![CDATA[]]></template>
+  </templates>
+  <public_template_modifications/>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>

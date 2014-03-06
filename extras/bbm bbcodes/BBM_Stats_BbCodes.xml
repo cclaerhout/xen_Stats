@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bbm_bbcodes>
+  <BbCode>
+    <General>
+      <tag>bar</tag>
+      <title><![CDATA[[STATS] BAR]]></title>
+      <description><![CDATA[Bar graph for stats]]></description>
+      <example><![CDATA[[bar=800x500|bcenter|legend:e|label-pos:0.8|no-grid:xy]
+{title=left}Title test 2{/title}
+{xaxis}Label x{/xaxis}
+{data=label:2010}
+	Heavy Industry | 22
+	Retail | 9
+	Light Industry | 14
+	Out of home | 16
+	Commuting | 7
+	Orientation | 9
+{/data}
+{data=label:2011}
+	Heavy Industry | 30
+	Retail | 4
+	Light Industry | 10
+	Out of home | 18
+	Commuting | 9
+	Orientation | 20
+{/data}
+{data=label:2012}
+	Heavy Industry | 22
+	Retail | 9
+	Light Industry | 14
+	Out of home | 16
+	Commuting | 7
+	Orientation | 9
+{/data}
+[/bar]
+
+[bar=400x400|bcenter|legend:no|label-pos:0.8|bar-h|multi-color]
+{title=left}Title test 2{/title}
+{data}22; 9; 14; 16; 7; 9{/data}
+{ticks=yaxis}Heavy Industry|Retail|Light Industry|Out of home|Commuting|Orientation{/ticks}
+[/bar]
+
+[bar=stack-data|stack-values|point-labels|bar-margin:30|legend: outside]
+{data}2; 6; 7; 10{/data}
+{data}7; 5; 3; 4{/data}
+{data}14; 9; 3; 8{/data}
+[/bar]
+
+[bar=point-labels|legend:no|multi-color]
+{data}14 ; 32 ; 41 ; 44 ; 40{/data}
+{ticks}A|B|C|D|E{/ticks}
+{points}fourteen|thirty two|fourty one|fourty four|fourty{/points}
+[/bar]
+
+[bar=600x@|no-tick|pad:0|legend:no|zoom]
+{data=mod-axis:y-y2|point-labels|bar-padding:-15|bar-margin:0|bar-width:15|animate:2500}
+2002 | 10200
+2003 | 10800
+2004 | 11200
+2005 | 11800
+2006 | 12400
+2007 | 12800
+2008 | 13200
+2009 | 12600
+2010 | 13100
+{/data}
+{data=no-renderer|animate:2000}
+2002 | 112000
+2003 | 122000
+2004 | 104000
+2005 | 99000
+2006 | 121000
+2007 | 148000
+2008 | 114000
+2009 | 133000
+2010 | 161000
+2011 | 173000
+{/data}
+{yaxis=string:dollar|tick-zero}{/yaxis}
+{y2axis=string:dollar|no-grid|tick-zero|tick-align}{/y2axis}
+{xaxis=no-tick-mark}{/xaxis}
+{zoom=loose}{/zoom}
+{hl=tooltip:s|tooltip-axis:y|size-adjust:7.5}{/hl}
+[/bar]
+
+[bar=point-labels|multi-color|legend:w-outside|tick-angle:0]
+{data}1x4;3x5;7x2{/data}
+{points}a|b|c{/points}
+[/bar]
+
+[bar=point-labels|legend:s-outside|no-tick]
+{data}1x4{/data}
+{data}3x5{/data}
+{data}7x2{/data}
+{points}a|b|c{/points}
+[/bar]]]></example>
+      <active>1</active>
+      <display_help>0</display_help>
+      <bbcode_id>sedo_stats_bar</bbcode_id>
+      <bbcode_addon>sedo_stats</bbcode_addon>
+    </General>
+    <Methods>
+      <Replacement>
+        <start_range><![CDATA[]]></start_range>
+        <end_range><![CDATA[]]></end_range>
+        <options_number>0</options_number>
+      </Replacement>
+      <Template>
+        <active>1</active>
+        <name>bbm_stats_bar</name>
+        <callback_class></callback_class>
+        <callback_method></callback_method>
+      </Template>
+      <PhpCallback>
+        <class></class>
+        <method></method>
+      </PhpCallback>
+    </Methods>
+    <ParserOptions>
+      <stopAutoLink>all</stopAutoLink>
+      <parseOptions>0</parseOptions>
+      <regex></regex>
+      <trimLeadingLinesAfter>0</trimLeadingLinesAfter>
+      <plainCallback>0</plainCallback>
+      <plainChildren>0</plainChildren>
+      <stopSmilies>1</stopSmilies>
+      <stopLineBreakConversion>0</stopLineBreakConversion>
+      <wrapping_tag>none</wrapping_tag>
+      <wrapping_option></wrapping_option>
+      <emptyContent_check>0</emptyContent_check>
+      <options_separator>|</options_separator>
+    </ParserOptions>
+    <ParserPerms>
+      <parser_has_usr>0</parser_has_usr>
+      <parser_usr>a:0:{}</parser_usr>
+      <parser_return>none</parser_return>
+      <parser_return_delay>0</parser_return_delay>
+    </ParserPerms>
+    <ViewPerms>
+      <view_has_usr>0</view_has_usr>
+      <view_usr>a:0:{}</view_usr>
+      <view_return>none</view_return>
+      <view_return_delay>0</view_return_delay>
+    </ViewPerms>
+    <Button>
+      <hasButton>1</hasButton>
+      <button_has_usr>0</button_has_usr>
+      <button_usr>a:0:{}</button_usr>
+      <killCmd>0</killCmd>
+      <custCmd></custCmd>
+      <quattro_button_type>icons_xen</quattro_button_type>
+      <quattro_button_type_opt><![CDATA[e204]]></quattro_button_type_opt>
+      <quattro_button_return>direct</quattro_button_return>
+      <quattro_button_return_opt><![CDATA[]]></quattro_button_return_opt>
+      <imgMethod></imgMethod>
+      <buttonDesc><![CDATA[{phrase:sedo_stats_inserts_bar_chart}]]></buttonDesc>
+      <tagOptions><![CDATA[]]></tagOptions>
+      <tagContent><![CDATA[]]></tagContent>
+      <redactor_has_icon>1</redactor_has_icon>
+      <redactor_sprite_mode>1</redactor_sprite_mode>
+      <redactor_sprite_params_x>3</redactor_sprite_params_x>
+      <redactor_sprite_params_y>-1181</redactor_sprite_params_y>
+      <redactor_image_url><![CDATA[styles/default/xenforo/editor/icons.png]]></redactor_image_url>
+    </Button>
+  </BbCode>
+  <BbCode>
+    <General>
+      <tag>pie</tag>
+      <title><![CDATA[[STATS] PIE]]></title>
+      <description><![CDATA[Pie graph for stats]]></description>
+      <example><![CDATA[[pie=legend:nw|label: label|label-pos:0.8|start-angle:-60]
+{title}Test{/title}
+{data}
+Heavy Industry | 22
+Retail | 9
+Light Industry | 14
+Out of home | 16
+Commuting  | 7
+Orientation | 9
+{/data}
+[/pie]
+
+[pie=legend:nw|label-pos:0.8|start-angle:-60|slice-margin:3]
+{title}Title test{/title}
+{data}
+Heavy Industry | 22
+Retail | 9
+Light Industry | 14
+Out of home | 16
+Commuting | 7
+Orientation | 9
+{/data}
+{data}
+Heavy Industry | 30
+Retail | 4
+Light Industry | 10
+Out of home | 18
+Commuting | 9
+Orientation | 20
+{/data}
+[/pie]]]></example>
+      <active>1</active>
+      <display_help>0</display_help>
+      <bbcode_id>sedo_stats_pie</bbcode_id>
+      <bbcode_addon>sedo_stats</bbcode_addon>
+    </General>
+    <Methods>
+      <Replacement>
+        <start_range><![CDATA[]]></start_range>
+        <end_range><![CDATA[]]></end_range>
+        <options_number>0</options_number>
+      </Replacement>
+      <Template>
+        <active>1</active>
+        <name>bbm_stats_pie</name>
+        <callback_class></callback_class>
+        <callback_method></callback_method>
+      </Template>
+      <PhpCallback>
+        <class></class>
+        <method></method>
+      </PhpCallback>
+    </Methods>
+    <ParserOptions>
+      <stopAutoLink>all</stopAutoLink>
+      <parseOptions>0</parseOptions>
+      <regex></regex>
+      <trimLeadingLinesAfter>0</trimLeadingLinesAfter>
+      <plainCallback>0</plainCallback>
+      <plainChildren>1</plainChildren>
+      <stopSmilies>1</stopSmilies>
+      <stopLineBreakConversion>0</stopLineBreakConversion>
+      <wrapping_tag>none</wrapping_tag>
+      <wrapping_option></wrapping_option>
+      <emptyContent_check>1</emptyContent_check>
+      <options_separator>|</options_separator>
+    </ParserOptions>
+    <ParserPerms>
+      <parser_has_usr>0</parser_has_usr>
+      <parser_usr>a:0:{}</parser_usr>
+      <parser_return>none</parser_return>
+      <parser_return_delay>0</parser_return_delay>
+    </ParserPerms>
+    <ViewPerms>
+      <view_has_usr>0</view_has_usr>
+      <view_usr>a:0:{}</view_usr>
+      <view_return>none</view_return>
+      <view_return_delay>0</view_return_delay>
+    </ViewPerms>
+    <Button>
+      <hasButton>1</hasButton>
+      <button_has_usr>0</button_has_usr>
+      <button_usr>a:0:{}</button_usr>
+      <killCmd>0</killCmd>
+      <custCmd></custCmd>
+      <quattro_button_type>icons_xen</quattro_button_type>
+      <quattro_button_type_opt><![CDATA[e1f9]]></quattro_button_type_opt>
+      <quattro_button_return>direct</quattro_button_return>
+      <quattro_button_return_opt><![CDATA[]]></quattro_button_return_opt>
+      <imgMethod></imgMethod>
+      <buttonDesc><![CDATA[{phrase: sedo_stats_inserts_pie_chart}]]></buttonDesc>
+      <tagOptions><![CDATA[]]></tagOptions>
+      <tagContent><![CDATA[]]></tagContent>
+      <redactor_has_icon>1</redactor_has_icon>
+      <redactor_sprite_mode>1</redactor_sprite_mode>
+      <redactor_sprite_params_x>3</redactor_sprite_params_x>
+      <redactor_sprite_params_y>-2685</redactor_sprite_params_y>
+      <redactor_image_url><![CDATA[styles/default/xenforo/editor/icons.png]]></redactor_image_url>
+    </Button>
+  </BbCode>
+</bbm_bbcodes>
