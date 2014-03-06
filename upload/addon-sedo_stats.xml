@@ -111,7 +111,7 @@ step=10</edit_format_params>
       <relation group_id="sedo_bbcode_stats" display_order="200"/>
     </option>
     <option option_id="sedo_stats_sprintf" edit_format="callback" data_type="array" can_backup="1" validation_class="Sedo_Stats_Option_Factory" validation_method="verify_sprintf">
-      <default_value>a:2:{s:6:"dollar";s:4:"$%'d";s:4:"euro";s:6:"%d €";}</default_value>
+      <default_value>a:2:{s:6:"dollar";s:4:"$%'d";s:4:"euro";s:7:"%d euro";}</default_value>
       <edit_format_params>Sedo_Stats_Option_Factory::render_sprintf</edit_format_params>
       <sub_options>*</sub_options>
       <relation group_id="sedo_bbcode_stats" display_order="50"/>
@@ -133,9 +133,12 @@ step=10</edit_format_params>
     <phrase title="option_sedo_stats_default_zoom_explain" version_id="0" version_string="1.0"><![CDATA[The zoom option is not available for all charts Bb Codes. If you don't enable the zoom by default, you can still enable it in the main tag option using the command "zoom". Example: [bar=zoom]...[/bar].]]></phrase>
     <phrase title="option_sedo_stats_sprintf" version_id="0" version_string="1.0"><![CDATA[String formatter]]></phrase>
     <phrase title="option_sedo_stats_sprintf_explain" version_id="0" version_string="1.0"><![CDATA[The string formatter allows you to format some strings, for example, you can use the data (numeric) of an axis and format them as a string with some extra elements (ie: currency). The jqPlot  formatter is using a JavaScript version of sprintf created by Ash Searle  and modified by Chris Leonello (the author of jqPlot). See original perl commands <a href="http://perldoc.perl.org/functions/sprintf.html" target="_blank">here</a>. For more information, directly see the jqPlot source. <br />
+<br />
+Example of formatters:<br />
+- for dollar: $%'d<br />
+- for euro: %d € <br />
  <br />
-Example for axis:
- <br />
+How to use: <br />
 To use this formatter with your Bb Codes (supported: bar), you need to use the special axis tags (xaxis, yaxis, x2axis, y2axis). In their options, use the command "string:" and follow it with one of your above key code. Ie: {yaxis=string:dollar}My optional axis name{/yaxis}.]]></phrase>
     <phrase title="sedo_stats_inserts_bar_chart" global_cache="1" version_id="0" version_string="1.0"><![CDATA[Inserts bar chart]]></phrase>
     <phrase title="sedo_stats_inserts_pie_chart" global_cache="1" version_id="0" version_string="1.0"><![CDATA[Inserts a pie chart]]></phrase>
