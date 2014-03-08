@@ -116,6 +116,12 @@ step=10</edit_format_params>
       <sub_options>*</sub_options>
       <relation group_id="sedo_bbcode_stats" display_order="50"/>
     </option>
+    <option option_id="sedo_stats_tick_disable_font_support" edit_format="onoff" data_type="boolean" can_backup="1">
+      <default_value>0</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="sedo_bbcode_stats" display_order="9999"/>
+    </option>
   </optiongroups>
   <permissions>
     <permission_groups/>
@@ -140,6 +146,8 @@ Example of formatters:<br />
  <br />
 How to use: <br />
 To use this formatter with your Bb Codes (supported: bar), you need to use the special axis tags (xaxis, yaxis, x2axis, y2axis). In their options, use the command "string:" and follow it with one of your above key code. Ie: {yaxis=string:dollar}My optional axis name{/yaxis}.]]></phrase>
+    <phrase title="option_sedo_stats_tick_disable_font_support" version_id="0" version_string="1.0"><![CDATA[Tick - disable font support]]></phrase>
+    <phrase title="option_sedo_stats_tick_disable_font_support_explain" version_id="0" version_string="1.0"><![CDATA[Disable the font support for ticks. Depending on browsers, the visual result might be better.]]></phrase>
     <phrase title="sedo_stats_inserts_bar_chart" global_cache="1" version_id="0" version_string="1.0"><![CDATA[Inserts bar chart]]></phrase>
     <phrase title="sedo_stats_inserts_pie_chart" global_cache="1" version_id="0" version_string="1.0"><![CDATA[Inserts a pie chart]]></phrase>
     <phrase title="sedo_stats_js_required" version_id="0" version_string="1.0"><![CDATA[JavaScript is required to display charts.]]></phrase>
@@ -170,6 +178,8 @@ To use this formatter with your Bb Codes (supported: bar), you need to use the s
     <phrase title="style_property_bbm_stats_color_11_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 11]]></phrase>
     <phrase title="style_property_bbm_stats_color_12_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
     <phrase title="style_property_bbm_stats_color_12_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 12]]></phrase>
+    <phrase title="style_property_bbm_stats_color_1_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
+    <phrase title="style_property_bbm_stats_color_1_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 01]]></phrase>
     <phrase title="style_property_bbm_stats_color_2_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
     <phrase title="style_property_bbm_stats_color_2_master" version_id="0" version_string="1.0"><![CDATA[Bbm Stats Color 02]]></phrase>
     <phrase title="style_property_bbm_stats_color_3_description_master" version_id="0" version_string="1.0"><![CDATA[]]></phrase>
@@ -248,6 +258,7 @@ To use this formatter with your Bb Codes (supported: bar), you need to use the s
     <property property_name="bbm_stats_bbcode_minheight" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Bb Code Options - Minimum height" description="Minimum pixels value to use with user custom height from Bb Code options. Default: 200. Don't add 'px' here." css_components="text,background,border,layout,extra" scalar_type="number" scalar_parameters="" display_order="3220" sub_group="bbcode"><![CDATA[200]]></property>
     <property property_name="bbm_stats_bbcode_maxheight" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Bb Code Options - Maximum height" description="Maximum pixels value to use with user custom height from Bb Code options. Default: 600. Don't add 'px' here." css_components="" scalar_type="number" scalar_parameters="" display_order="3230" sub_group="bbcode"><![CDATA[600]]></property>
     <property property_name="bbm_stats_grid_gridline_color" property_type="scalar" definition="1" group_name="sedo_bbm_stats" title="Grid - Gridline color" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="1005" sub_group="grid"><![CDATA[#cccccc]]></property>
+    <property property_name="bbm_stats_color_1" property_type="scalar" definition="1" group_name="color" title="Bbm Stats Color 01" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="27810001" sub_group="bbm_stats"><![CDATA[#48a6c6]]></property>
     <group group_name="sedo_bbm_stats" display_order="13213">
       <title>[Bb Codes &amp; Buttons Manager] Stats Bb Code</title>
       <description></description>

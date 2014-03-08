@@ -1085,15 +1085,21 @@ class Sedo_Stats_Listener_Bar
       		/* Ticks Manager - default axes */
       		$axisNoRenderingTicks = false;
       		$ticksOptions = array(
-      			'fontFamily' => 'Georgia, Arial, Helvetica, sans-serif',
       			'angle' => $tickAngle,
       			'fontSize' => '10pt'
-      			//'enableFontSupport' => false
       		);
+
+      		if($xenOptions->sedo_stats_tick_disable_font_support)
+      		{
+      			$ticksOptions['enableFontSupport'] = false;	
+      		}
+      		else
+      		{
+      			$ticksOptions['fontFamily'] = 'Georgia, Arial, Helvetica, sans-serif';	
+      		}
 
       		if($xaxisRenderingTicks === false || $x2axisRenderingTicks === false || $yaxisRenderingTicks === false || $y2axisRenderingTicks === false)
       		{
-      			//
       			$axisNoRenderingTicks = true;	
       		}
       		elseif($rendererTicks)
