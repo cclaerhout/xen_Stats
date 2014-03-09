@@ -765,6 +765,7 @@ class Sedo_Stats_Listener_Bar
 								$dataVal = $dataItem[1];
 								
 								$dataValTest = explode(';', $dataVal);
+								$dataValTest = array_map('trim', $dataValTest);
 							
 								if(isset($dataValTest[1]))
 								{
@@ -816,6 +817,7 @@ class Sedo_Stats_Listener_Bar
 								$dataVal = trim($dataVal);
 	
 								$dataValTest = explode(';', $dataVal);
+								$dataValTest = array_map('trim', $dataValTest);
 					
 								if(isset($dataValTest[1]))
 								{
