@@ -56,6 +56,9 @@ class Sedo_Stats_Listener_Bar
 		$floatClass = '';
 		$blockOpt = false;
 		
+		$tickAngle = $xenOptions->sedo_stats_default_tick_angle;
+		$tickAngleOpt = false;
+		
 		$dualAxeMode = false; // only compatible with 2 data tags
 		$dualAxeModeOpt = false;
 		
@@ -165,17 +168,31 @@ class Sedo_Stats_Listener_Bar
 			elseif(!$globalPadOpt && strpos($cleanOption, 'pad:') === 0)
 			{
 				$globalPadOpt = true;
-				$globalPad = floatval(substr(str_replace(' ', '', $cleanOption), 4));
+				$globalPadVal = floatval(substr(str_replace(' ', '', $cleanOption), 4));
+				
+				if($globalPadVal > -100 && $globalPadVal < 100)
+				{
+					$globalPad = $globalPadVal;
+				}
 			}
 			elseif(!$highlighterOpt && $cleanOption == 'highlighter')
 			{
 				$highlighter = true;
 				$highlighterOpt = true;
 			}
+			elseif(!$tickAngleOpt && strpos($cleanOption, 'tick-angle:') === 0)
+      			{
+      				$tickAngleOpt = true;
+      				$tickAngleVal = intval(substr(str_replace(' ', '', $cleanOption), 11));
+
+      				if($tickAngleVal >= -180 && $tickAngleVal <= 180)
+      				{
+      					$tickAngle = $tickAngleVal;
+      				}
+      			}
 		}
 
-		list(  	$tickAngle,
-			$globalGrid,
+		list( 	$globalGrid,
 			$loadPointLabelsJs,
 			$globalModAxis,
 			$animate,
@@ -1815,7 +1832,6 @@ class Sedo_Stats_Listener_Bar
 		$dataLabelsMinValueToShow = 3;
 		$dataLabelsPosFactor = '0.52';
 		
-		$tickAngle = $xenOptions->sedo_stats_default_tick_angle;
 		$dataLabels = array();
 		$dataGrid = array('x' => true, 'y' => true);
 		$dataPointLabels = false;
@@ -1892,32 +1908,6 @@ class Sedo_Stats_Listener_Bar
 
       					$label = $labelOption;
 					$hasLabel = true;
-      				}
-      			}
-			elseif(strpos($cleanOption, 'label-min:') === 0)
-      			{
-      				$minLabel = floatval(substr(str_replace(' ', '', $cleanOption), 10));
-      				if($minLabel >= 0 && $minLabel <= 100)
-      				{
-      					$customRendererOptions['dataLabelThreshold'] = $dataLabelsMinValueToShow = $minLabel;
-      				}
-      			}
-			elseif(strpos($cleanOption, 'label-pos:') === 0)
-      			{
-      				$labelFactor = floatval(substr(str_replace(' ', '', $cleanOption), 10));
-
-      				if($labelFactor >= 0 && $labelFactor <= 1)
-      				{
-      					$customRendererOptions['dataLabelPositionFactor'] = $dataLabelsPosFactor = "$labelFactor";
-      				}
-      			}
-			elseif(strpos($cleanOption, 'tick-angle:') === 0)
-      			{
-      				$tickAngleVal = intval(substr(str_replace(' ', '', $cleanOption), 11));
-
-      				if($tickAngleVal >= -180 && $tickAngleVal <= 180)
-      				{
-      					$tickAngle = $tickAngleVal;
       				}
       			}
       			elseif(strpos($cleanOption, 'no-grid:') === 0)
@@ -2025,10 +2015,10 @@ class Sedo_Stats_Listener_Bar
 	      		}
       			elseif(!$barWidthOpt && strpos($cleanOption, 'bar-width:') === 0)
       			{
-	      			$barWidthVal = intval(substr(str_replace(' ', '', $cleanOption), 11));
+	      			$barWidthVal = intval(substr(str_replace(' ', '', $cleanOption), 10));
 	      			$barWidthOpt = true;
 	      			
-	      			if($barWidthVal >= -500 && $barWidthVal < 500)
+	      			if($barWidthVal > 0 && $barWidthVal < 100)
 	      			{
 	      				$barWidth = $barWidthVal;
 	      			}
@@ -2206,7 +2196,6 @@ class Sedo_Stats_Listener_Bar
 	      		$seriesDefaults = array_merge_recursive($seriesDefaults, $genericDefaults);
 
 	      		return array(
-				$tickAngle,
 				$dataGrid,
 				$loadPointLabelsJs,
 				$modAxis,
