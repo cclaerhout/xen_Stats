@@ -2008,7 +2008,7 @@ class Sedo_Stats_Listener_Bar
 	      			$barMarginVal = intval(substr(str_replace(' ', '', $cleanOption), 11));
 	      			$barMarginOpt = true;
 	      			
-	      			if($barMarginVal >= 0 && $barMarginVal < 90)
+	      			if($barMarginVal >= -90 && $barMarginVal < 90)
 	      			{
 	      				$barMargin = $barMarginVal;
 	      			}
@@ -2018,7 +2018,7 @@ class Sedo_Stats_Listener_Bar
 	      			$barWidthVal = intval(substr(str_replace(' ', '', $cleanOption), 10));
 	      			$barWidthOpt = true;
 	      			
-	      			if($barWidthVal > 0 && $barWidthVal < 100)
+	      			if($barWidthVal >= -90 && $barWidthVal < 90)
 	      			{
 	      				$barWidth = $barWidthVal;
 	      			}
@@ -2080,6 +2080,7 @@ class Sedo_Stats_Listener_Bar
 			}
 			elseif(!$fillToZeroOpt && $cleanOption == 'axis-zero')
 			{
+				//only works with the parent tag
 				$fillToZero = true;
 				$fillToZeroOpt = true;
 			}
@@ -2174,6 +2175,7 @@ class Sedo_Stats_Listener_Bar
       			
       			if($stackValues)
       			{
+      				//only effective on the parent tag
       				$genericDefaults['pointLabels']['stackedValue'] = true;
       			}
       		}
