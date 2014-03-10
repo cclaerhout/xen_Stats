@@ -107,6 +107,7 @@ class Sedo_Stats_Helper_BbCodes
 			$globalGridMode = 'y';
 		}
 
+		//ignore below at the moment
 		if($dualAxeMode && !$globalGridMode)
 		{
 			$nData = 1;

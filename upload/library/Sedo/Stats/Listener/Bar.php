@@ -2186,8 +2186,6 @@ class Sedo_Stats_Listener_Bar
 	      			'rendererOptions' => array(
 	      				'fillToZero' => $fillToZero,
 	      				'showDataLabels' => $dataLabelsShow,
-	      				'dataLabelPositionFactor' => $dataLabelsPosFactor,
-	      				'dataLabelThreshold' => $dataLabelsMinValueToShow,
 	      				'highlightMouseOver' => false,
 	      				'highlightMouseDown' => true
 	      			)
