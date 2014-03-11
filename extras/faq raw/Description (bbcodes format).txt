@@ -1,0 +1,38 @@
+﻿[COLOR=#000000][SIZE=6][B]Stats & Charts Bb Codes[/B][/SIZE][/COLOR]
+[CENTER]
+The Faq & screenshots will be posted later this week[S]end[/S][/CENTER]
+
+[COLOR=#ff0000][SIZE=4][FONT=arial black]DISCLAIMER[/FONT][/SIZE][/COLOR]
+[LIST]
+[*]You need at least PHP 5.3.x to install this addon. It is not compatible with PHP 5.2.x
+
+[*]These Bb Codes are made for Editors, not for all members. They require to know some commands
+[*]I don't plan to make some TinyMCE User Interfaces, that would be really complex to do (I will explain why in the presentation)
+[*]To learn how to use them, please read the FAQ (wip)
+[/LIST]
+
+[COLOR=#ff0000][SIZE=4][FONT=arial black]P[B]resentation[/B][/FONT][/SIZE][/COLOR]
+All these Bb Codes are using the jQuery plugin named "[URL='http://www.jqplot.com/']jqPlot[/URL]". This JavaScript library is simply amazing. Its author, [EMAIL='chris@jqplot.com']Chris Leonello[/EMAIL], has succeeded to make a very, very, very complete script with an impressive number of renderers and options.
+
+A "renderer" is simply an engine used for all the different parts of the chart: you want to draw a curve, it will use the curve renderer, you want to make a bar chart, it will use the bar renderer, you want to add some axis/legends/ticks, it will also use their own renderers, etc. jQplot has lots of "renderers" and each renderer has [S]a lot of[/S] a crazy amount of options (see the [URL='http://www.jqplot.com/docs/files/usage-txt.html']API documentation[/URL]).
+
+All the available options have not been implemented in these Bb Codes, but they still have a substantial number of them. You will see by yourself when you will read the Faq. That specificity makes really hard to make some User Interfaces for the [URL='http://xenforo.com/community/resources/tinymce-quattro-and-its-wysiwyg-bbcodes.1881']TinyMCE Quattro addon[/URL].
+
+If you want to support jqPlot directly, here is [URL='http://www.jqplot.com/donate.php']the page[/URL] to donate. If you still have money to support me, here's [URL='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=F2F8KK7WNSE9Y&lc=US&item_name=C%c3%a9dric%20Claerhout&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted']the link[/URL] to donate. Thank you.
+
+[SIZE=4][FONT=arial black][COLOR=#ff0000]Install/Update[/COLOR][/FONT][/SIZE]
+[LIST]
+[*][COLOR=#000000]Do like always, just be sure to have the below addons installed first[/COLOR]
+[*][COLOR=#000000]Import the Bbm Bb Codes (available in the extra directory of the archive) using the Bbm Bb Codes Manager[/COLOR]
+[/LIST]
+[SIZE=4][FONT=arial black][COLOR=#ff0000]Needed addons[/COLOR][/FONT][/SIZE]
+[LIST=1]
+[*][URL='http://xenforo.com/community/resources/bbcodes-buttons-manager.1731/']BBM addon[/URL] (version 2.7.x minimum)
+[/LIST]
+[SIZE=4][FONT=arial black][COLOR=#ff0000]Support[/COLOR][/FONT][/SIZE]
+[COLOR=#000000]None, if you still want to submit bugs, just do it [URL='https://github.com/cclaerhout/xen_TinyQuattro']on github[/URL], but before be sure to have read the Faq.[/COLOR]
+
+[SIZE=4][COLOR=#ff0000][FONT=arial black]References[/FONT][/COLOR][/SIZE]
+[LIST]
+[*][URL='http://www.jqplot.com/']jqPlot[/URL] by [EMAIL='chris@jqplot.com']Chris Leonello[/EMAIL]
+[/LIST]

@@ -1076,10 +1076,10 @@ class Sedo_Stats_Listener_Bar
 						}
 						elseif(strpos($speCleanOpt, 'size-adjust:') === 0)
 						{
-							$hlSizeAdjustVal = substr(str_replace(' ', '', $speCleanOpt), 7);
+							$hlSizeAdjustVal = substr(str_replace(' ', '', $speCleanOpt), 12);
 							$hlSizeAdjustVal = Sedo_Stats_Helper_BbCodes::filterFloat($hlSizeAdjustVal);
 							
-							if($hlSizeAdjustVal > 0 && $hlSizeAdjustVal < 30)
+							if($hlSizeAdjustVal > 0 && $hlSizeAdjustVal <= 30)
 							{
 								$hlSizeAdjust = $hlSizeAdjustVal;
 							}
@@ -1189,7 +1189,7 @@ class Sedo_Stats_Listener_Bar
 				$config['cursor']['showVerticalLine'] = true;
 			}
 
-			if($zoomShowVerticalLine)
+			if($zoomShowHonrizontalLine)
 			{
 				$config['cursor']['showHorizontalLine'] = true;
 			}
@@ -1983,12 +1983,18 @@ class Sedo_Stats_Listener_Bar
       				if(in_array($pointLabelsVal, array('nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w')))
       				{
       					$dataPointLabels = $pointLabelsVal;
-      				}
 
-      				$customPointLabels = array(
-					'show' => true,
-					'location' => $dataPointLabels
-				);
+	      				$customPointLabels = array(
+						'show' => true,
+						'location' => $dataPointLabels
+					);      					
+      				}
+      				elseif($pointLabelsVal == 'no')
+      				{
+      					$customPointLabels = array(
+      						'show' => false
+      					);
+      				}
       			}      			
       			elseif(strpos($cleanOption, 'mod-axis:') === 0)
       			{

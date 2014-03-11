@@ -1,0 +1,762 @@
+﻿[SIZE=5][B]FAQ[/B][/SIZE]
+
+[LIST=1]
+[*][B]I have some errors telling me some php functions are missing, what can I do?[/B]
+[I]Update your php version. You need at least PHP 5.3.x to use this addon. If you can't update it, I'm sorry but then you can't use this addon.[/I]
+[*][B]When I edit my message some options have been replaced by a smilie, how can I avoid this?[/B]
+[I]This often occurs after ":". Just add a space between this character and your option value.[/I]
+[/LIST]
+
+[B][SIZE=5]BB CODES MANUAL[/SIZE][/B]
+All these Bb Codes are built on the same way: there's a main Bb Code tag then some inner special Bb Codes. The special Bb Codes are wrapped inside those characters {tag} instead of [plain][tag][/plain].
+
+All these Bb Codes have also some common special Bb Codes. The most important of them is the special tag {data}. Its purpose is to enter your series of data. The main (parent) tag can have several {data} tags in it.
+
+The main tag and the data child tags can share some options in common. If these options are set to the main tag, they will be used by default for all the series of data. If they are set to the data tag, they will only be used for the current serie.
+
+[SIZE=5][U][B]Main tag common options[/B][/U][/SIZE]
+Among the main tag options, some are shared with all Bb Codes of this addon (and some of my other Bb Codes as well):
+[LIST]
+[*][I][COLOR=#ff0080]{digit}x{digit}[/COLOR] -[/I] width x height (always in pixels) ; for the default width/height value, use '@' ; ie: 450x@
+
+[*][COLOR=#ff0080][I]bleft, bcenter, bright, fleft, fright[/I][/COLOR] - if you want to left align the block, use "bleft" (block+left) ; if you want to use a left float on the block use "fleft" (float+left).
+P.S: on mobile devices, this option will be automatically skipped to apply a center block align.
+
+[*][COLOR=#ff0080][I]legend:xx[/I][/COLOR] - xx being a special value. This option is already explained in the addon options (you can set there the default value), but let's explain it again. 
+This option is used to display or not the legend of you chart data at the position you want. The possible values (to replace xx) are:
+[LIST]
+[*]"[I]no[/I]" (for no legend)
+[*]"[I]nw, n, ne, e, se, s, sw, w[/I]" (the cardinal direction)
+
+[*]"[I]nw-outside, n-outside, ne-outside, e-outside, se-outside, s-outside, sw-outside, w-outside[/I]" (to position the legend outside your chart)
+[/LIST]
+[/LIST]
+
+[U][SIZE=5][B][COLOR=#ff8000]#[PIE] Bb Code[/COLOR][/B][/SIZE][/U]
+This Bb Code allows to create some pie charts (1 serie of data) or donuts charts (2 series of data).
+
+[U]How to enter your data ?[/U]
+For this Bb Code, it's really easy, there's only one format. An exemple will be easier:
+[spoiler= Pie example]
+[IMG]http://xenforo.com/community/attachments/pie_01-png.68973/?temp_hash=dd49b0bfcd1bbe904c693d3e965256ab[/IMG]
+[code]
+[pie]
+{data}
+   Heavy Industry | 22
+   Retail | 9
+   Light Industry | 14
+   Out of home | 16
+   Commuting  | 7
+   Orientation | 9
+{/data}
+[/pie]
+[/code][/spoiler]
+As you can see, there is some text and the value separated by a |. That's all, there is no other way to enter your data. If you want a donut chart instead of a pie chart, just enter two series of data:
+[spoiler= Donut example]
+[IMG]http://xenforo.com/community/attachments/pie_02-png.68974/?temp_hash=dd49b0bfcd1bbe904c693d3e965256ab[/IMG]
+[code]
+[pie]
+{data}
+   Heavy Industry | 22
+   Retail | 9
+   Light Industry | 14
+   Out of home | 16
+   Commuting  | 7
+   Orientation | 9
+{/data}
+{data}
+   Heavy Industry | 30
+   Retail | 20
+   Light Industry | 2
+   Out of home | 10
+   Commuting  | 12
+   Orientation | 6
+{/data}
+[/pie]
+[/code]
+
+[U]P.S[/U]: if you don't want to make a carriage return at each line of data, you can use instead these signs: []
+[/spoiler]
+
+[U]Main tag unique options[/U]
+[LIST]
+[*][COLOR=#ff0080][I]donut[/I][/COLOR] - will force the donut renderer (automatically activated when there are two series of data)
+[/LIST]
+[U]Main tag & data tags shared options[/U]
+[LIST]
+[*][COLOR=#ff0080][I]label:xx[/I][/COLOR] - possible values:
+[LIST]
+[*][COLOR=#b3b300]no[/COLOR]: to hide labels
+
+[*][COLOR=#b3b300]percent[/COLOR]: to display the percent of label values
+
+[*][COLOR=#b3b300]value[/COLOR]: to display label values
+
+[*][COLOR=#b3b300]label[/COLOR]: to display label names
+[/LIST]
+[IMG]http://xenforo.com/community/attachments/pie_03-png.68975/?temp_hash=4d3a4418ea5336a2e86a0f77a12b65f6[/IMG]
+[*][COLOR=#ff0080][I]nofill[/I][/COLOR][I] - [/I]do not fill the pie content
+[IMG]http://xenforo.com/community/attachments/pie_04-png.68976/?temp_hash=4d3a4418ea5336a2e86a0f77a12b65f6[/IMG] 
+
+[*][I][I][COLOR=#ff0080]label-min:xx[/COLOR] - [/I][/I]xx being a digit between 0 to 100
+Control from which value or percent the label should be displayed
+[IMG]http://xenforo.com/community/attachments/pie_05-png.68977/?temp_hash=4d3a4418ea5336a2e86a0f77a12b65f6[/IMG] 
+
+[*][I][I][COLOR=#ff0080]label-pos:xx[/COLOR] - [/I][/I]xx being a digit between 0 to 1 (0.52)
+Control your label position from the center
+[IMG]http://xenforo.com/community/attachments/pie_06-png.68978/?temp_hash=4d3a4418ea5336a2e86a0f77a12b65f6[/IMG] 
+
+[*][I][COLOR=#ff0080]start-angle:xx[/COLOR][I][I][I] - [/I][/I][/I][/I]xx being a digit between -180 to 180
+Control your chart rotation
+[IMG]http://xenforo.com/community/attachments/pie_07-png.68979/?temp_hash=9ee853eb29688fb6e096c8ddb57d2c1d[/IMG] 
+
+[*][I][COLOR=#ff0080]slice-margin:xx [/COLOR][I][I][I]- [/I][/I][/I][/I]xx being a digit between 0 to 20
+Control your chart slides margin
+[IMG]http://xenforo.com/community/attachments/pie_08-png.68980/?temp_hash=9ee853eb29688fb6e096c8ddb57d2c1d[/IMG]
+[/LIST]
+[U]Available special tags:[/U]
+[LIST]
+[*][B]{title}[/B]
+[LIST]
+[*][U]Content:[/U] title of the chart
+[*][U]Options:[/U]
+[LIST=1]
+[*][COLOR=#ff0080][I]left, center, right[/I][/COLOR]
+Use it for the alignment of the title
+[/LIST]
+[/LIST]
+[*][B]{data}[/B]
+[LIST]
+[*][U]Content:[/U] data serie
+[*][U]Unique options:[/U] none
+[/LIST]
+[/LIST]
+
+[U]Final example (let's take a donut !)[/U]
+[spoiler=Click to display it]
+[IMG]http://xenforo.com/community/attachments/pie_09-png.68981/?temp_hash=e95b2febd8c307719fcfc13975d5260a[/IMG]
+[code]
+[pie=legend: nw|label-pos: 0.8|start-angle: -60|slice-margin: 3|label-min: 5]
+{title}Title test{/title}
+{data}
+   Heavy Industry | 22
+   Retail | 9
+   Light Industry | 14
+   Out of home | 16
+   Commuting | 7
+   Orientation | 9
+{/data}
+{data}
+   Heavy Industry | 30
+   Retail | 4
+   Light Industry | 10
+   Out of home | 18
+   Commuting | 9
+   Orientation | 20
+{/data}
+[/pie]
+[/code]
+[/spoiler]
+
+
+[U][SIZE=5][B][COLOR=#ff8000]#[BAR] Bb Code[/COLOR][/B][/SIZE][/U]
+This Bb Code allows to create some bar charts.
+
+[U]How to enter your data ?[/U]
+For this Bb Code, several methods exists.
+
+[CENTER][B][COLOR=#00b3b3]Method A: the classic one[/COLOR][/B][/CENTER]
+"[I]Classic[/I]" means simply the same way than the one available with the pie Bb Code. You know it, so let's only put the code and the result:
+[spoiler=Code & Result]
+
+[IMG]http://xenforo.com/community/attachments/bar_01-png.69023/?temp_hash=63791d1afb3a91ffb5ccd0d2c61cd62a[/IMG]
+
+[code]
+[bar=bcenter]
+{data=label:2010}
+   Heavy Industry | 22
+   Retail | 9
+   Light Industry | 14
+   Out of home | 16
+   Commuting | 7
+   Orientation | 9
+{/data}
+   {data=label:2011}
+   Heavy Industry | 30
+   Retail | 4
+   Light Industry | 10
+   Out of home | 18
+   Commuting | 9
+   Orientation | 20
+{/data}
+[/bar]
+[/code]
+
+[U]P.S[/U]: if you don't want to make a carriage return at each line of data, you can use instead these signs: "[]".
+[/spoiler]
+
+[CENTER][B][COLOR=#00b3b3]Method B: only numeric values[/COLOR][/B][/CENTER]
+This methods allows you to enter only numeric values. With this method the values can be separated with a [COLOR=#b300b3][I]carriage return[/I][/COLOR], the signs [COLOR=#b300b3][I][][/I][/COLOR] or simply the sign [COLOR=#b300b3][I];[/I][/COLOR]. The result will be the same. This method allows you to create a lot of different kinds of charts (using some others options).
+
+The above charts don't mean anything, they just an example. You would have to use a few more special tags to format the chart, but better start simple.
+[spoiler=Codes & Result]
+[code]
+[bar=bcenter]
+   {data}
+     22
+     9
+     14
+     16
+     7
+     9
+   {/data}
+[/bar]
+[/code]
+OR
+[code]
+[bar=bcenter]
+   {data}22[]9[]14[]16[]7[]9{/data}
+[/bar]
+[/code]
+OR
+[code]
+[bar=bcenter]
+   {data}22; 9; 14; 16; 7; 9{/data}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_02-png.69024/?temp_hash=63791d1afb3a91ffb5ccd0d2c61cd62a[/IMG]
+[/spoiler]
+
+Before to see another method, let's see two concret examples of that method.
+[spoiler=Better example]
+[U]First one:[/U]
+[code]
+[bar=bcenter|legend:no|label-pos:0.8|multi-color]
+    {title=left}Title test 2{/title}
+    {data}22; 9; 14; 16; 7; 9{/data}
+    {ticks=xaxis}Heavy Industry|Retail|Light Industry|Out of home|Commuting|Orientation{/ticks}
+[/bar]
+[/code]
+
+[IMG]http://xenforo.com/community/attachments/bar_03-png.69025/?temp_hash=63791d1afb3a91ffb5ccd0d2c61cd62a[/IMG]
+
+[U]Second one:[/U]
+[code]
+[bar=bcenter|legend:no|label-pos:0.8|multi-color|bar-h]
+    {title=left}Title test 2{/title}
+    {data}22; 9; 14; 16; 7; 9{/data}
+    {ticks=yaxis}Heavy Industry|Retail|Light Industry|Out of home|Commuting|Orientation{/ticks}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_04-png.69026/?temp_hash=63791d1afb3a91ffb5ccd0d2c61cd62a[/IMG]
+[/spoiler]
+
+[CENTER][B][COLOR=#00b3b3]Method C: coordinates (and point-labels shortcuts)[/COLOR][/B][/CENTER]
+This methods looks like the battleship game. It simply uses coordinates: x*y. It only supports "point-labels" (will be explained later) using this format: x*y*point label.
+
+The data can be inside the same data tag and separated with the sign ";" or each data can be in a data tag. But the result won't be exactly the same (one will be a simply array, the other a multi dimensional array).
+[spoiler=Codes & Result]
+[U]Simple array[/U]
+[code]
+[bar=bcenter]
+{data}1x4;3x5;7x2{/data}
+[/bar]
+[/code]
+
+[IMG]http://xenforo.com/community/attachments/bar_05-png.69028/?temp_hash=63791d1afb3a91ffb5ccd0d2c61cd62a[/IMG]
+
+[U]Multi dimensional array[/U]
+[code]
+[bar=bcenter]
+{data}1x4{/data}
+{data}3x5{/data}
+{data}7x2{/data}
+[/bar]
+[/code]
+
+
+[IMG]http://xenforo.com/community/attachments/bar_06-png.69029/?temp_hash=63791d1afb3a91ffb5ccd0d2c61cd62a[/IMG]
+
+
+As you can see the result is not the same. Colors are not the most important difference (you can colorize the first example with the main tag option 'multi-color'), it's the number of data series that you see in the legend.
+
+[U]Point-labels shortcuts[/U]
+The point-labels renderer will be explained later, but since this mode has a shortcut (that is in the official script), let's begin here. To active the renderer, you need to put in the main tag the "point-renderer" option, then look how it works:
+
+[code]
+[bar=bcenter|point-labels]
+{data}1x4xTest 1;3x5xTest 2;7x2xTest 3{/data}
+[/bar]
+[/code]
+
+I don't like this shortcurt, so I've standardized with the other method the way to add point-labels, which means you can use this instead:
+[code]
+[bar=bcenter|point-labels]
+{data}1x4;3x5;7x2{/data}
+{points}Test 1|Test 2|Test 3{/points}
+[/bar]
+[/code]
+
+The result will be the same:
+[IMG]http://xenforo.com/community/attachments/bar_07-png.69031/?temp_hash=63791d1afb3a91ffb5ccd0d2c61cd62a[/IMG]
+[/spoiler]
+
+[U]Main tag unique options[/U]
+[LIST]
+[*][COLOR=#ff0080][I]zoom[/I][/COLOR] - will enable the zoom function on your chart; the zoom can also be activated using the special tag "zoom" than has more options (the zoom function is in fact a renderer).
+[IMG]http://xenforo.com/community/attachments/bar_08-png.69062/?temp_hash=4358f48819642e4265853ea6f69e9442[/IMG] 
+
+[*][COLOR=#ff0080][I]no-zoom[/I][/COLOR] - will disable the zoom function (if it has been enabled by default)
+
+
+[*][COLOR=#ff0080][I]no-tick[/I][/COLOR] - will disable the tick renderer
+[IMG]http://xenforo.com/community/attachments/bar_09-png.69063/?temp_hash=4358f48819642e4265853ea6f69e9442[/IMG] 
+[I]Check the ticks appearance on the x-axis & y-axis, they don't have formatter anymore[/I]
+[*][COLOR=#ff0080][I]tick-angle:xx[/I][/COLOR] - (from -180 to 180)
+[LIST]
+[*]This option can also be set by axis (use one of the special tags axis - see below)
+[*]The result will look close to the above screenshot if you set the tick-angle to 0 (but the font and other rendering options will still be there)
+[/LIST]
+
+[IMG]http://xenforo.com/community/attachments/bar_16-png.69083/?temp_hash=8bbb44be032914b91ea5155ed6a6a2d4[/IMG] 
+
+
+[*][I][COLOR=#ff0080]highlighter[/COLOR] [/I]- will enable the highlighter renderer; it can also be enabled using the special tag "hl" which has more options. It gives by default the x/y axis values.
+
+For the purpose of the example, the bar width has been modified below:
+
+[IMG]http://xenforo.com/community/attachments/bar_10-png.69064/?temp_hash=4358f48819642e4265853ea6f69e9442[/IMG] 
+
+
+[*][COLOR=#ff0080][I]stack-data[/I][/COLOR] - to stack data you need at least 2 series of data. Instead of comparing them side by side, you will compare them by merging them.
+
+[IMG]http://xenforo.com/community/attachments/bar_11-png.69066/?temp_hash=2b26ec6066b4f16da7092ff65dd2b298[/IMG]
+[*][COLOR=#ff0080][I]stack-values[/I][/COLOR] - this option is meant to be used [U]at the same time[/U] with the "stack-data" & "point-labels" options. It will add up the values.
+[IMG]http://xenforo.com/community/attachments/bar_29-png.69139/?temp_hash=2fa86967e7696e279c80b4e1bb5a1afa[/IMG] 
+[code]
+[bar=bcenter|stack-data|point-labels|stack-values]
+{data}22; 9; 14; 16; 7; 9{/data}
+{data}22; 9; 14; 16; 7; 9{/data}
+[/bar]
+
+[bar=bcenter|stack-data|point-labels]
+{data}22; 9; 14; 16; 7; 9{/data}
+{data}22; 9; 14; 16; 7; 9{/data}
+[/bar]
+[/code]
+
+
+[*][COLOR=#ff0080][I]pad:xx[/I][/COLOR] - xx being a digit. This option modifies the axis. I'm going to put the official option description because I'm not sure how to describe it easily: 
+[quote]Padding to extend the range above and below the data bounds.  The data range is multiplied by this factor to determine minimum and maximum axis bounds.[/quote]
+
+If I want to make it easy and describe what I see, if you use this option with a 0 value (pad:0), the axis values will start from a value close to the first value (instead of 0). But I'm not sure it's the correct explanation.
+
+[IMG]http://xenforo.com/community/attachments/bar_12-png.69067/?temp_hash=2b26ec6066b4f16da7092ff65dd2b298[/IMG] 
+
+With another chart (easier to see the difference):
+[IMG]http://xenforo.com/community/attachments/bar_13-png.69068/?temp_hash=2b26ec6066b4f16da7092ff65dd2b298[/IMG] 
+
+
+
+[*][COLOR=#ff0080][I]dual-axe[/I][/COLOR] - this option is a shortcut to display two series of data on a dual axe, the first serie being represented with bar, the second with a line. You can do more, but it will require to use much more options.
+
+[IMG]http://xenforo.com/community/attachments/bar_14-png.69069/?temp_hash=0e9265379efb54da0dae06e8ab94766d[/IMG]
+[*][COLOR=#ff0080][I]no-grid[/I][/COLOR] or [COLOR=#ff0080][I]no-grid:xx[/I][/COLOR] -
+[LIST]
+[*]the first simple option will disable the grid of the x and y axis
+
+[*]xx can be (x,y,xy)
+[*]this option is a shortcurt ; it can be also used in the options of the axis special tags, which means you will be disable x,y,x2,y2 axis
+[*][IMG]http://xenforo.com/community/attachments/bar_17-png.69091/?temp_hash=90f53a97e759ab8afcbc95a9140b9908[/IMG]
+[/LIST]
+[*][COLOR=#ff0080][I]axis-zero[/I][/COLOR] - Make the 0 value the axis reference. To see the difference you will need to have at least 1 negative values. Let's change the second one (-9 instead of 9).
+
+[IMG]http://xenforo.com/community/attachments/bar_30-png.69141/?temp_hash=8b23343711553f2548fac59b77cbb308[/IMG]
+[/LIST]
+[U]Main tag & data tags shared options[/U]
+[LIST]
+[*][COLOR=#ff0080][I]label:xx[/I][/COLOR] (or any string, options fallback) - (string)
+Both below codes will give the same result
+[spoiler=See codes]
+[code]
+[bar=bcenter]
+{data=label: My Label Name}22; 9; 14; 16; 7; 9{/data}
+[/bar]
+[/code]
+[code]
+[bar=bcenter]
+{data=My Label Name}22; 9; 14; 16; 7; 9{/data}
+[/bar]
+[/code]
+[/spoiler]
+
+[IMG]http://xenforo.com/community/attachments/bar_15-png.69081/?temp_hash=3ab493ecb9797ddef0c78287d1ee5b55[/IMG] 
+
+
+[*][COLOR=#ff0080][I]point-labels[/I][/COLOR] or [COLOR=#ff0080][I]point-labels:xx[/I][/COLOR] - (nw, n, ne, e, se, s, sw, w or no)
+The point-labels renderer allows to give some information about the serie. It can be a value or a name. To have a name, you will have to use the special tag 'points' (see below).
+If you want to disable the point-labels for a data serie, just use the value "no" (version 1.0.1).
+
+[IMG]http://xenforo.com/community/attachments/bar_18-png.69095/?temp_hash=9760c037087a0e262cdfa76b1d831091[/IMG] 
+
+[*][COLOR=#ff0080][I]no-renderer[/I][/COLOR] -will disable the bar renderer
+[LIST]
+[*]Example when the option is used with the main tag:
+[IMG]http://xenforo.com/community/attachments/bar_19-png.69119/?temp_hash=af1f093c9d2891ef9f915a58280c4267[/IMG] 
+[code]
+[bar=bcenter|no-renderer]
+{data}22; 9; 14; 16; 7; 9{/data}
+[/bar]
+[/code]
+
+[*]Example when the option is used on 1 data serie:
+[IMG]http://xenforo.com/community/attachments/bar_20-png.69120/?temp_hash=af1f093c9d2891ef9f915a58280c4267[/IMG] 
+[code]
+[bar=bcenter]
+{data}22; 9; 14; 16; 7; 9{/data}
+{data=no-renderer}22; 9; 14; 16; 7; 9{/data}
+[/bar]
+[/code]
+[/LIST]
+
+
+[*][COLOR=#ff0080][I]bar-padding:xx[/I][/COLOR] - (digit)
+[quote]Number of pixels between adjacent bars at the same axis value.[/quote]
+You need at least two series of data to see the difference.
+[IMG]http://xenforo.com/community/attachments/bar_21-png.69130/?temp_hash=36a5758f9d97793c2e9f595a94cd546b[/IMG] 
+
+[*][COLOR=#ff0080][I]bar-margin:xx[/I][/COLOR] - (digit)
+[IMG]http://xenforo.com/community/attachments/bar_22-png.69131/?temp_hash=36a5758f9d97793c2e9f595a94cd546b[/IMG] 
+
+[*][COLOR=#ff0080][I]bar-width:xx[/I][/COLOR] - (digit)
+[IMG]http://xenforo.com/community/attachments/bar_23-png.69132/?temp_hash=36a5758f9d97793c2e9f595a94cd546b[/IMG] 
+
+[*][COLOR=#ff0080][I]shadow-angle:xx[/I][/COLOR] - (from -180 to 180)
+[IMG]http://xenforo.com/community/attachments/bar_24-png.69133/?temp_hash=34c7a1ffe6cccb79e2c0f99aeaadc442[/IMG] 
+
+[*][COLOR=#ff0080][I]shadow-depth:xx[/I][/COLOR] - (from 0 to 15)
+[IMG]http://xenforo.com/community/attachments/bar_25-png.69134/?temp_hash=34c7a1ffe6cccb79e2c0f99aeaadc442[/IMG] 
+
+[*][COLOR=#ff0080][I]bar-h[/I][/COLOR] OR [COLOR=#ff0080][I]bar-horizontal[/I][/COLOR] -
+Display the bar horizontally (recommended entry mode: only numeric values)
+[IMG]http://xenforo.com/community/attachments/bar_26-png.69135/?temp_hash=34c7a1ffe6cccb79e2c0f99aeaadc442[/IMG] 
+
+[*][COLOR=#ff0080][I]bar-v[/I][/COLOR] OR [COLOR=#ff0080][I]bar-vertical[/I][/COLOR] - 
+The bars are by default vertical, but this parent can be useful if you have enabled the horizontal mode in the parent tag and want to disable it for a data serie
+[spoiler]Watch out, that's ugly!
+[IMG]http://xenforo.com/community/attachments/bar_27-png.69136/?temp_hash=34c7a1ffe6cccb79e2c0f99aeaadc442[/IMG] 
+[code]
+[bar=bcenter|bar-h|no-grid]
+{data=bar-v|mod-axis:y-y2,x-x2}22; 9; 14; 16; 7; 9{/data}
+{data}22; 9; 14; 16; 7; 9{/data}
+[/bar]
+[/code]
+[/spoiler]
+
+[*][COLOR=#ff0080][I]animate[/I][/COLOR] or [COLOR=#ff0080][I]animate:xx[/I][/COLOR] - (speed in ms from 0 to 20000)
+This option allows to animate the data serie. You can set the animation speed (in ms). 
+
+[*][COLOR=#ff0080][I]multi-color[/I][/COLOR] -
+This option will colorize the bars of 1 serie (where as they should have been the same color)
+[IMG]http://xenforo.com/community/attachments/bar_28-png.69138/?temp_hash=2fa86967e7696e279c80b4e1bb5a1afa[/IMG]
+[/LIST]
+
+[U]Available special tags:[/U]
+[LIST]
+[*][B]{title}[/B]
+[LIST]
+[*][U]Content:[/U] title of the chart
+[*][U]Options:[/U]
+[LIST=1]
+[*][COLOR=#ff0080][I]left, center, right[/I][/COLOR]
+Use it for the alignment of the title
+[/LIST]
+[/LIST]
+[*][B]{data}[/B]
+[LIST]
+[*][U]Content:[/U] data serie
+[*][U]Unique options:[/U]
+[LIST=1]
+[*][COLOR=#ff0080][I]mod-axis:xx-xx[/I][/COLOR] - (x, y, x2, y2)
+[LIST]
+[*]This option allows to create new axes by modifying the original axis to another new one; for example the original data serie x-axis can be set to be a x2-axis. A x2 axis is simply  a x-axis located on the other side of the chart. jqPlot supports a lot of axis. I've only integrated 4 of them: x, y, x2, y2.
+[*]To relocate the data serie axis, you just need to respect the following format [COLOR=#b3b300]xx-xx[/COLOR]; 
+For example [I]x-x2[/I]. The data serie x-axis will be set as a x2-axis. If you need to also modify its y-axis to a y2 axis, just use a coma. Ie:
+[COLOR=#b3b300]mod-axis:x-x2,y-y2[/COLOR]
+[*]Let's make a simple example where the first serie data y-axis will be set as an y2 axis:
+[U]Code:[/U]
+[code]
+[bar=no-tick]
+{data=mod-axis:y-y2}
+   2002 | 10200
+   2003 | 10800
+{/data}
+{data=no-renderer}
+   2002 | 500
+   2003 | 700
+{/data}
+[/bar]
+[/code]
+[U]Result[/U]:
+[IMG]http://xenforo.com/community/attachments/bar_31-png.69144/?temp_hash=51f44c0279e0ce85a473577ac66b095c[/IMG]
+[/LIST]
+[/LIST]
+[/LIST]
+
+
+[*][B]{xaxis}, {yaxis}, {x2axis}, {y2axis}[/B]
+[LIST]
+[*][U]Content:[/U] axis label
+[code]
+[bar=bcenter]
+{data}22; 9; 14; 16; 7; 9{/data}
+{xaxis}x-axis title{/xaxis}
+{yaxis}y-axis title{/yaxis}
+[/bar]
+[/code]
+
+[IMG]http://xenforo.com/community/attachments/bar_32-png.69147/?temp_hash=78c422b32781e57953a81d9c73770d63[/IMG] 
+
+
+[*][U]Options: [/U]
+[LIST=1]
+[*][COLOR=#ff0080][I]min:xx[/I][/COLOR] (numeric) -
+To work the axis minimum value seems to need the max value as well.
+[spoiler=Example]
+[code]
+[bar=bcenter]
+{data}22; 9; 14; 16; 7; 9{/data}
+{yaxis=min:10|max:30}y-axis title{/yaxis}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_33-png.69148/?temp_hash=78c422b32781e57953a81d9c73770d63[/IMG] 
+[/spoiler]
+
+[*][COLOR=#ff0080][I]max:xx[/I][/COLOR] (numeric) -
+[spoiler=Example]
+[code]
+[bar=bcenter]
+{data}22; 9; 14; 16; 7; 9{/data}
+{yaxis=max:10}y-axis title{/yaxis}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_34-png.69150/?temp_hash=78c422b32781e57953a81d9c73770d63[/IMG]  
+[/spoiler]
+
+
+[*][COLOR=#ff0080][I]pad:xx[/I][/COLOR] (numeric) -
+[I]Option already explained[/I]
+[quote]Padding to extend the range above and below the data bounds.  The data range is multiplied by this factor to determine minimum and maximum axis bounds.[/quote]
+
+[*][I][COLOR=#ff0080]string:xx[/COLOR] [/I](xenOptionValue) -
+Format the axis value in a string using a sprintf format taken from one of this addon option
+[spoiler=Example]
+[code]
+[bar=bcenter]
+{data}22; 9; 14; 16; 7; 9{/data}
+{yaxis=string: dollar}y-axis title{/yaxis}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_35-png.69151/?temp_hash=78c422b32781e57953a81d9c73770d63[/IMG]   
+[/spoiler]
+
+
+[*][COLOR=#ff0080][I]tick-angle:xx[/I][/COLOR] (-180, 180) -
+[I]Option already explained[/I]
+
+[*][COLOR=#ff0080][I]renderer[/I][/COLOR] -
+Enable the axis renderer (can be in useful in some advanced chart)
+
+[*][COLOR=#ff0080][I]no-renderer[/I][/COLOR] -
+Disable the axis renderer (can be in useful in some advanced chart)
+
+[*][COLOR=#ff0080][I]renderer-ticks[/I][/COLOR] -
+Enable the axis ticks renderer (default)
+
+[*][COLOR=#ff0080][I]no-tick[/I][/COLOR] -
+Disable the axis ticks renderer - [I]option already explained[/I]
+
+[*][COLOR=#ff0080][I]no-grid[/I][/COLOR] -
+Hide the axis grid.
+[spoiler=Example]
+[code]
+[bar=bcenter]
+{data}22; 9; 14; 16; 7; 9{/data}
+{yaxis=no-grid}{/yaxis}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_36-png.69152/?temp_hash=78c422b32781e57953a81d9c73770d63[/IMG]    
+[/spoiler]
+
+
+[*][COLOR=#ff0080][I]no-tick-mark[/I][/COLOR] -
+[spoiler=Example]
+[IMG]http://xenforo.com/community/attachments/bar_37-png.69153/?temp_hash=78c422b32781e57953a81d9c73770d63[/IMG] 
+[/spoiler]
+
+[*][I][COLOR=#ff0080]tick-align[/COLOR] -[/I]
+If you have created a new axis, you will notice that the two axis grid (and ticks) and not align. This option solves the problem.
+[spoiler=Example]
+[code]
+[bar=bcenter]
+{data}15; -9; 14; 12; 4; 90{/data}
+{data=no-renderer|mod-axis:y-y2}22; 9; 14; 16; 7; 9{/data}
+{y2axis=tick-align}{/y2axis}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_39-png.69160/?temp_hash=b22fb3c50186eaded296d6497183f7ef[/IMG]  
+Without the tick-align option:
+[IMG]http://xenforo.com/community/attachments/bar_38-png.69158/?temp_hash=b22fb3c50186eaded296d6497183f7ef[/IMG] 
+[/spoiler]
+[*][I][COLOR=#ff0080]tick-zero[/COLOR] -[/I]
+This option will force to have the zero tick. 
+[spoiler=Let's modify the previous example]
+[code]
+[bar=bcenter]
+{data}15; -9; 14; 12; 4; 90{/data}
+{data=no-renderer|mod-axis:y-y2}22; 9; 14; 16; 7; 9{/data}
+{y2axis=tick-align|tick-zero}{/y2axis}
+[/bar]
+[/code]
+  
+[IMG]http://xenforo.com/community/attachments/bar_40-png.69161/?temp_hash=b22fb3c50186eaded296d6497183f7ef[/IMG]  
+[/spoiler]
+[/LIST]
+[/LIST]
+[*][B]{ticks} [/B](can use only one tag)
+[LIST]
+[*][U]Content:[/U] name of ticks separated with a |
+
+[*][U]Options:[/U]
+[LIST=1]
+[*][COLOR=#ff0080][I]xaxis[/I][/COLOR], [I][COLOR=#ff0080]yaxis[/COLOR][/I], [COLOR=#ff0080][I]x2axis[/I][/COLOR], [COLOR=#ff0080][I]y2axis[/I][/COLOR] - set your ticks target
+[/LIST]
+[*][U]Demo:[/U]
+[spoiler=Example 1]
+[code]
+[bar=bcenter]
+{data}22; 9; 14; 16; 7; 9{/data}
+{ticks}tick 1|tick 2|tick 3|tick 4|tick 5|tick 6{/ticks}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_41-png.69172/?temp_hash=cdbc21f8a335e0b87d651e6fda2e6bdf[/IMG] 
+[/spoiler]
+[spoiler=Example 2]
+[code]
+[bar=bcenter|bar-h]
+{data}22; 9; 14; 16; 7; 9{/data}
+{ticks=yaxis}tick 1|tick 2|tick 3|tick 4|tick 5|tick 6{/ticks}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_42-png.69173/?temp_hash=cdbc21f8a335e0b87d651e6fda2e6bdf[/IMG] 
+[/spoiler]
+[/LIST]
+[/LIST]
+[LIST]
+[*][B]{points} [/B](requires the option [I]point-labels[/I] - v1.0.1)
+[LIST]
+[*][U]Content:[/U] name of point-labels separated with a |
+
+[*][U]Options:[/U]
+[LIST=1]
+[*][COLOR=#ff0080][I]data:xx[/I][/COLOR] (integer) -
+to target which data to apply the point-labels
+[/LIST]
+[*][U]Demo:[/U]
+[spoiler=1 data serie]
+[code]
+[bar=bcenter|point-labels]
+{data}22; 9; 14; 16; 7; 9{/data}
+{points}point 1|point 2|point 3|point 4|point 5|point 6{/points}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_43-png.69195/?temp_hash=545ddb3dc2410b2ce6cfc4e4874cfce9[/IMG] 
+[/spoiler]
+[spoiler=2 data series - label points on the second serie]
+[code]
+[bar=bcenter|point-labels]
+{data}22; 9; 14; 16; 7; 9{/data}
+{data}22; 9; 14; 16; 7; 9{/data}
+{points=data:2}point 1|point 2|point 3|point 4|point 5|point 6{/points}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_44-png.69196/?temp_hash=545ddb3dc2410b2ce6cfc4e4874cfce9[/IMG] 
+[/spoiler]
+[spoiler=2 data series - different label points for series]
+[code]
+[bar=bcenter|point-labels]
+{data}22; 9; 14; 16; 7; 9{/data}
+{points}point 1|point 2|point 3|point 4|point 5|point 6{/points}
+{data}22; 9; 14; 16; 7; 9{/data}
+{points}point A|point B|point C|point D|point E|point F{/points}
+[/bar]
+[/code]
+[IMG]http://xenforo.com/community/attachments/bar_45-png.69197/?temp_hash=545ddb3dc2410b2ce6cfc4e4874cfce9[/IMG] 
+[/spoiler]
+[/LIST]
+[/LIST]
+[LIST]
+[*][B]{zoom}[/B] (can use only one tag - enable the zoom)
+[LIST]
+[*][U]Content:[/U] not used
+
+[*][U]Options:[/U]
+[LIST=1]
+[*][COLOR=#ff0080][I]tooltip[/I][/COLOR] - display a box that will give the cursor coordinates
+[IMG]http://xenforo.com/community/attachments/bar_46-png.69211/?temp_hash=c610462a35405779055e655ffec5bd24[/IMG] 
+
+[*][COLOR=#ff0080][I]no-tooltip[/I][/COLOR] - will disable the tooltip (if I make an option in a next release to disable it by default, this option could be useful)
+
+[*][I][COLOR=#ff0080]v-line[/COLOR][/I] - will draw the vertical line of your cursor position
+[IMG]http://xenforo.com/community/attachments/bar_48-png.69213/?temp_hash=c610462a35405779055e655ffec5bd24[/IMG] 
+
+[*][COLOR=#ff0080][I]h-line[/I][/COLOR] - wil draw the horizontal line of your cursor
+[IMG]http://xenforo.com/community/attachments/bar_47-png.69212/?temp_hash=c610462a35405779055e655ffec5bd24[/IMG] 
+[U]Both options:[/U]
+[IMG]http://xenforo.com/community/attachments/bar_49-png.69214/?temp_hash=c610462a35405779055e655ffec5bd24[/IMG] 
+
+[*][COLOR=#ff0080][I][I]constrain:xx[/I] (x or y) - [/I][/COLOR]
+Will limit the zoom selection window to only one axe[COLOR=#ff0080][I]
+[IMG]http://xenforo.com/community/attachments/bar_50-png.69215/?temp_hash=c610462a35405779055e655ffec5bd24[/IMG] 
+[IMG]http://xenforo.com/community/attachments/bar_51-png.69216/?temp_hash=c610462a35405779055e655ffec5bd24[/IMG] [/I][/COLOR]
+[*][COLOR=#ff0080][I]loose[/I][/COLOR] -
+[quote]Will expand zoom range to provide more rounded tick values[/quote]
+I've integrated this option, but I don't see any difference.
+
+[*][COLOR=#ff0080][I]follow-mouse[/I][/COLOR] - (requires the[I] tooltip[/I] option)
+[quote]Tooltip follows the mouse, it is not at a fixed location.[/quote]
+[IMG]http://xenforo.com/community/attachments/bar_52-png.69218/?temp_hash=c610462a35405779055e655ffec5bd24[/IMG]
+[/LIST]
+[/LIST]
+[/LIST]
+[LIST]
+[*][B]{hl}[/B] (can use only one tag - enable the highlighter)
+[LIST]
+[*][U]Content:[/U] not used
+[*][U]Options:[/U]
+[LIST=1]
+[*][COLOR=#ff0080][I]no-marker[/I][/COLOR] -
+[IMG]http://xenforo.com/community/attachments/bar_53-png.69276/?temp_hash=5443b05514ac938960239bb6f0025fa4[/IMG] 
+
+[*][COLOR=#ff0080][I]no-tooltip[/I][/COLOR] - 
+[IMG]http://xenforo.com/community/attachments/bar_54-png.69277/?temp_hash=5443b05514ac938960239bb6f0025fa4[/IMG] 
+
+[*][COLOR=#ff0080][I]tooltip:xx[/I][/COLOR] (nw, n, ne, e, se, s, sw, w) -
+Same screenshot than above, but let you control the tooltip position
+
+[*][COLOR=#ff0080][I]tooltip-axis:xx[/I][/COLOR] (x, y, xy, yx) - 
+In the last screenshot, you see two numbers, the first is the x value, the second the y value. You can control here how to display them and which of them should be displayed
+
+[*][COLOR=#ff0080][I]tooltip-string:xx[/I][/COLOR] (xenOptionValue) -
+[quote]sprintf format string for the tooltip[/quote]
+I didn't manage to make this option works. Might be a bug with the renderer
+
+[*][COLOR=#ff0080][I]string:xx[/I][/COLOR] (xenOptionValue) -
+[quote]alternative to tooltipFormatString will format the whole tooltip text, populating with x, y values as indicated by tooltipAxes option.  So, you could have a tooltip like: ‘Date: %s, number of cats: %d’ to format the whole tooltip at one go.[/quote]
+
+[*][COLOR=#ff0080][I]size-adjust:xx[/I][/COLOR] (0-30) -
+[quote]Pixels to add to the overall size of the highlight[/quote]
+[IMG]http://xenforo.com/community/attachments/bar_55-png.69285/?temp_hash=30554e047116675287cfe80ca9d1c70f[/IMG]
+[/LIST]
+[/LIST]
+[/LIST]
