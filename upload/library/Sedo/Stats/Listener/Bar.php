@@ -893,7 +893,35 @@ class Sedo_Stats_Listener_Bar
 					if(empty($speContent))	{ break; }
 					
 					$speContent = str_replace(array('<br />', '&nbsp;'), array('|', ' '), $speContent);
-					$pointLabels = explode('|', $speContent);
+					$speOpts = explode('|', $speOption);
+					$targetData = null;
+					
+					foreach($speOpts as $n => $speOpt)
+					{
+						if($n > 5) { break; }
+						
+						$speCleanOpt = trim(BBM_Helper_BbCodes::cleanOption($speOpt, true));
+						
+						if(strpos($speCleanOpt, 'data:') === 0)
+						{
+							$targetDataVal = intval(substr(str_replace(' ', '', $speCleanOpt), 5));
+							if($targetDataVal > 0 && $targetDataVal < 1000)
+							{
+								$targetData = $targetDataVal-1;
+							}
+						}
+					}
+
+					if($targetData == null)
+					{
+						array_push($pointLabels, explode('|', $speContent));
+					}
+					else
+					{
+						$pointLabels[$targetData] = explode('|', $speContent);
+					}
+					
+					
 					//might need to make a loop and check for null string (not really useful thus)
 				break;
 
@@ -1303,7 +1331,7 @@ class Sedo_Stats_Listener_Bar
 			if($xDataEntryMode && !$xDataEntryModeLabel)
 			{
 				//Let's make the point special tag works with the xDataEntryMode modes
-				foreach($pointLabels as $k => $label)
+				foreach($pointLabels[0] as $k => $label)
 				{
 					$data_n = count($data);
 					
@@ -1329,9 +1357,15 @@ class Sedo_Stats_Listener_Bar
 					}
 				}
 			}
-			else
+			elseif(isset($config['series']))
 			{
-				$config['pointLabels']['labels'] = $pointLabels;
+				foreach($config['series'] as $k => &$serie)
+				{
+					if(isset($pointLabels[$k]))
+					{
+						$serie['pointLabels']['labels'] = $pointLabels[$k];
+					}
+				}
 			}
       		}
 
