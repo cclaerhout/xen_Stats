@@ -321,7 +321,7 @@ class Sedo_Stats_Listener_Bar
 				||
 				($speTag == 'ticks' && $stack[$speTag] != 1)
 				||
-				($speTag == 'points' && $stack[$speTag] != 1)
+				($speTag == 'points' && $stack[$speTag] > $maxData)
 				||
 				($speTag == 'zoom' && $stack[$speTag] != 1)
 				||
