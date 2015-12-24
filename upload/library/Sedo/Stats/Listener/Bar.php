@@ -774,6 +774,7 @@ class Sedo_Stats_Listener_Bar
 						foreach($dataItems as $dataItem)
 						{
 							$dataItem = explode('|', $dataItem);
+
 							if(isset($dataItem[1]) && $onlyDataMode !== true)
 							{
 								$onlyDataMode = false;
@@ -824,7 +825,28 @@ class Sedo_Stats_Listener_Bar
 								else
 								{
 									$dataVal = Sedo_Stats_Helper_BbCodes::filterFloat($dataVal);
-									array_push($dataToPush, array($dataName, $dataVal));
+
+									if($stackSeries || $barDirection == 'horizontal')
+									{
+										//"Tick and value" can be quicly set in a single array data array(tick, value), but this doesn't work with several data (stackmode): values & ticks must be set separately
+										//Same thing when for bar-h
+										array_push($dataToPush, floatval($dataVal));
+
+										$manualTicksCtrl =  array_flip($manualTicks);
+										if(!isset($manualTicksCtrl[$dataName]))
+										{
+											$manualTicks[] = $dataName;
+										}
+										
+										if($barDirection == 'horizontal')
+										{
+											$manualTicksTarget = 'yaxis';
+										}
+									}
+									else
+									{
+										array_push($dataToPush, array($dataName, $dataVal));
+									}
 								}						
 							}
 							elseif($onlyDataMode !== false)
