@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="sedo_stats" title="BBM - Stats Bb Codes" version_string="1.0.1" version_id="1" url="http://xenforo.com/community/resources/2944/" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+<addon addon_id="sedo_stats" title="BBM - Stats Bb Codes" version_string="1.0.2" version_id="2" url="http://xenforo.com/community/resources/2944/" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
@@ -166,7 +166,7 @@ To use this formatter with your Bb Codes (supported: bar), you need to use the s
     <phrase title="sedo_stats_ticks_sprintf_key" version_id="0" version_string="1.0"><![CDATA[Key trigger]]></phrase>
     <phrase title="style_property_bbm_stats_bbcode_maxheight_description_master" version_id="0" version_string="1.0"><![CDATA[Maximum pixels value to use with user custom height from Bb Code options. Default: 600. Don't add 'px' here.]]></phrase>
     <phrase title="style_property_bbm_stats_bbcode_maxheight_master" version_id="0" version_string="1.0"><![CDATA[Bb Code Options - Maximum height]]></phrase>
-    <phrase title="style_property_bbm_stats_bbcode_maxwidth_description_master" version_id="0" version_string="1.0"><![CDATA[Maximum pixels value to use with user custom width from Bb Code options. Default: 580. Don't add 'px' here.]]></phrase>
+    <phrase title="style_property_bbm_stats_bbcode_maxwidth_description_master" version_id="1" version_string="1.0.1"><![CDATA[Maximum pixels value to use with user custom width from Bb Code options. Default: 700. Don't add 'px' here.]]></phrase>
     <phrase title="style_property_bbm_stats_bbcode_maxwidth_master" version_id="0" version_string="1.0"><![CDATA[Bb Code Options - Maximum width]]></phrase>
     <phrase title="style_property_bbm_stats_bbcode_minheight_description_master" version_id="0" version_string="1.0"><![CDATA[Minimum pixels value to use with user custom height from Bb Code options. Default: 200. Don't add 'px' here.]]></phrase>
     <phrase title="style_property_bbm_stats_bbcode_minheight_master" version_id="0" version_string="1.0"><![CDATA[Bb Code Options - Minimum height]]></phrase>
@@ -265,7 +265,7 @@ To use this formatter with your Bb Codes (supported: bar), you need to use the s
     </group>
   </style_properties>
   <templates>
-    <template title="bbm_stats_bar" version_id="0" version_string="1.0"><![CDATA[<xen:if is="{$visitor.getBrowser.isIE} AND {$visitor.getBrowser.IEis} < 9">
+    <template title="bbm_stats_bar" version_id="1" version_string="1.0.1"><![CDATA[<xen:if is="{$visitor.getBrowser.isIE} AND {$visitor.getBrowser.IEis} < 9">
 	<xen:require js="js/sedo/stats/bbm_5_excanvas.min.js" />
 </xen:if>
 
@@ -275,6 +275,8 @@ To use this formatter with your Bb Codes (supported: bar), you need to use the s
 <xen:require js="js/sedo/stats/jqplot/plugins/jqplot.canvasTextRenderer.min.js" />
 <xen:require js="js/sedo/stats/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js" />
 <xen:require js="js/sedo/stats/jqplot/plugins/jqplot.categoryAxisRenderer.min.js" />
+<xen:require js="js/sedo/stats/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js" />
+
 <xen:require js="js/sedo/stats/jqplot/plugins/jqplot.barRenderer.min.js" />
 
 <xen:if is="{$options.zoom}">

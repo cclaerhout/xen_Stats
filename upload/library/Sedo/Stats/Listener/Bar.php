@@ -245,6 +245,7 @@ class Sedo_Stats_Listener_Bar
 		$xaxisMin = null;
 		$xaxisMax = null;
 		$xaxisStringFormatter = null;
+		$xaxisLabelAngle = null;
 		$xaxisTickAngle = null;
 		$xaxisRenderer = null;
 		$xaxisRenderingTicks = null;
@@ -259,6 +260,7 @@ class Sedo_Stats_Listener_Bar
 		$yaxisMin = null;
 		$yaxisMax = null;
 		$yaxisStringFormatter = null;
+		$yaxisLabelAngle = null;
 		$yaxisTickAngle = null;
 		$yaxisRenderer = null;
 		$yaxisRenderingTicks = null;
@@ -273,6 +275,7 @@ class Sedo_Stats_Listener_Bar
 		$x2axisMin = null;
 		$x2axisMax = null;
 		$x2axisStringFormatter = null;
+		$x2axisLabelAngle = null;
 		$x2axisTickAngle = null;
 		$x2axisRenderer = null;		
 		$x2axisRenderingTicks = null;
@@ -287,6 +290,7 @@ class Sedo_Stats_Listener_Bar
 		$y2axisMin = null;
 		$y2axisMax = null;
 		$y2axisStringFormatter = null;
+		$y2axisLabelAngle = null;
 		$y2axisTickAngle = null;
 		$y2axisRenderer = null;
 		$y2axisRenderingTicks = null;
@@ -389,6 +393,15 @@ class Sedo_Stats_Listener_Bar
 								$xaxisStringFormatter = $xenStringFormatter[$stringFormatterKey];
 							}
 						}
+						elseif(strpos($speCleanOpt, 'label-angle:') === 0)
+			      			{
+			      				$axisLabelAngle = intval(substr(str_replace(' ', '', $speCleanOpt), 12));
+
+			      				if($axisLabelAngle >= -180 && $axisLabelAngle <= 180)
+			      				{
+			      					$xaxisLabelAngle = $axisLabelAngle;
+			      				}
+			      			}						
 						elseif(strpos($speCleanOpt, 'tick-angle:') === 0)
 			      			{
 			      				$axisTickAngle = intval(substr(str_replace(' ', '', $speCleanOpt), 11));
@@ -472,6 +485,15 @@ class Sedo_Stats_Listener_Bar
 								$yaxisStringFormatter = $xenStringFormatter[$stringFormatterKey];
 							}
 						}
+						elseif(strpos($speCleanOpt, 'label-angle:') === 0)
+			      			{
+			      				$axisLabelAngle = intval(substr(str_replace(' ', '', $speCleanOpt), 12));
+
+			      				if($axisLabelAngle >= -180 && $axisLabelAngle <= 180)
+			      				{
+			      					$yaxisLabelAngle = $axisLabelAngle;
+			      				}
+			      			}						
 						elseif(strpos($speCleanOpt, 'tick-angle:') === 0)
 			      			{
 			      				$axisTickAngle = intval(substr(str_replace(' ', '', $speCleanOpt), 11));
@@ -555,6 +577,15 @@ class Sedo_Stats_Listener_Bar
 								$x2axisStringFormatter = $xenStringFormatter[$stringFormatterKey];
 							}
 						}
+						elseif(strpos($speCleanOpt, 'label-angle:') === 0)
+			      			{
+			      				$axisLabelAngle = intval(substr(str_replace(' ', '', $speCleanOpt), 12));
+
+			      				if($axisLabelAngle >= -180 && $axisLabelAngle <= 180)
+			      				{
+			      					$x2axisLabelAngle = $axisLabelAngle;
+			      				}
+			      			}						
 						elseif(strpos($speCleanOpt, 'tick-angle:') === 0)
 			      			{
 			      				$axisTickAngle = intval(substr(str_replace(' ', '', $speCleanOpt), 11));
@@ -638,6 +669,15 @@ class Sedo_Stats_Listener_Bar
 								$y2axisStringFormatter = $xenStringFormatter[$stringFormatterKey];
 							}
 						}
+						elseif(strpos($speCleanOpt, 'label-angle:') === 0)
+			      			{
+			      				$axisLabelAngle = intval(substr(str_replace(' ', '', $speCleanOpt), 12));
+
+			      				if($axisLabelAngle >= -180 && $axisLabelAngle <= 180)
+			      				{
+			      					$y2axisLabelAngle = $axisLabelAngle;
+			      				}
+			      			}						
 						elseif(strpos($speCleanOpt, 'tick-angle:') === 0)
 			      			{
 			      				$axisTickAngle = intval(substr(str_replace(' ', '', $speCleanOpt), 11));
@@ -1420,10 +1460,18 @@ class Sedo_Stats_Listener_Bar
 				if($xaxisLabel !== null)
 				{
 					$xaxisLabelConfig = array(
-						'label' => $xaxisLabel,
-						'labelRenderer' => 'CanvasAxisLabelRenderer',
-						//'renderer' => 'CategoryAxisRenderer'
+						'label' => $xaxisLabel
 					);
+
+					if($xaxisLabelAngle)
+					{
+						$xaxisLabelConfig += array(
+							'labelRenderer' => 'CanvasAxisLabelRenderer',
+							'labelOptions' => array(
+								'angle' => $xaxisLabelAngle
+							)
+						);
+					}
 					
 					$config['axes']['xaxis'] += $xaxisLabelConfig;
 				}
@@ -1525,10 +1573,18 @@ class Sedo_Stats_Listener_Bar
 				if($yaxisLabel !== null)
 				{
 					$yaxisLabelConfig = array(
-						'label' => $yaxisLabel,
-						'labelRenderer' => 'CanvasAxisLabelRenderer',
-						//'renderer' => 'CategoryAxisRenderer'
+						'label' => $yaxisLabel
 					);
+
+					if($yaxisLabelAngle)
+					{
+						$yaxisLabelConfig += array(
+							'labelRenderer' => 'CanvasAxisLabelRenderer',
+							'labelOptions' => array(
+								'angle' => $yaxisLabelAngle
+							)
+						);
+					}
 					
 					$config['axes']['yaxis'] += $yaxisLabelConfig;
 				}
@@ -1630,10 +1686,18 @@ class Sedo_Stats_Listener_Bar
 				if($x2axisLabel !== null)
 				{
 					$x2axisLabelConfig = array(
-						'label' => $x2axisLabel,
-						'labelRenderer' => 'CanvasAxisLabelRenderer',
-						//'renderer' => 'CategoryAxisRenderer'
+						'label' => $x2axisLabel
 					);
+
+					if($x2axisLabelAngle)
+					{
+						$x2axisLabelConfig += array(
+							'labelRenderer' => 'CanvasAxisLabelRenderer',
+							'labelOptions' => array(
+								'angle' => $x2axisLabelAngle
+							)
+						);
+					}
 					
 					$config['axes']['x2axis'] += $x2axisLabelConfig;
 				}
@@ -1735,10 +1799,18 @@ class Sedo_Stats_Listener_Bar
 				if($y2axisLabel !== null)
 				{
 					$y2axisLabelConfig = array(
-						'label' => $y2axisLabel,
-						'labelRenderer' => 'CanvasAxisLabelRenderer',
-						//'renderer' => 'CategoryAxisRenderer'
+						'label' => $y2axisLabel
 					);
+
+					if($y2axisLabelAngle)
+					{
+						$y2axisLabelConfig += array(
+							'labelRenderer' => 'CanvasAxisLabelRenderer',
+							'labelOptions' => array(
+								'angle' => $y2axisLabelAngle
+							)
+						);
+					}
 					
 					$config['axes']['y2axis'] += $y2axisLabelConfig;		
 				}
