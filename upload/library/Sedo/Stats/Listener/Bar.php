@@ -105,7 +105,7 @@ class Sedo_Stats_Listener_Bar
 				if($height != '@')
 				{
 					$height = ($height > $maxHeight) ? $maxHeight : ($height < $minHeight) ? $minHeight : $height;
-					array_push($inlineCss, "height:{$width}px");
+					array_push($inlineCss, "height:{$height}px");
 				}
 				
 				unset($options[$i]);
