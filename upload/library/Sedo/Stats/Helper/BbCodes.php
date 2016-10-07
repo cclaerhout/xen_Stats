@@ -159,6 +159,14 @@ class Sedo_Stats_Helper_BbCodes
 		);
 	}
 	
+	public static function getDefaultWidthHeight()
+	{
+		return array(
+			intval(XenForo_Template_Helper_Core::styleProperty("bbm_stats_defaultwidth")),
+			intval(XenForo_Template_Helper_Core::styleProperty("bbm_stats_defaultheight")),		
+		);
+	}
+	
 	public static function getGridConfig($drawGridLines = true)
 	{
 		return array(

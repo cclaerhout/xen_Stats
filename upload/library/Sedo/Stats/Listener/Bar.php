@@ -44,9 +44,8 @@ class Sedo_Stats_Listener_Bar
 
 		list($legendShow, $legendPos, $legendOutside) = Sedo_Stats_Helper_BbCodes::getLegendPosition();
 		$legendOpt = false;
-		
-		$width = null;
-		$height = null;
+
+		list($width, $height) = Sedo_Stats_Helper_BbCodes::getDefaultWidthHeight();
 		list($minWidth, $maxWidth, $minHeight, $maxHeight) = Sedo_Stats_Helper_BbCodes::getMinMaxWidthHeight();
 		
 		$sizeRegex = '#^(\d{1,3}|@)(px)?x(\d{1,3}|@)(px)?$#'; //only pixels - no percent
@@ -93,19 +92,17 @@ class Sedo_Stats_Listener_Bar
 			elseif( !$sizeOpt && preg_match($sizeRegex, $cleanOption, $match) )
 			{
 				$sizeOpt = true;
-				$width = $match[1];
-				$height = $match[3];
+				$_width = $match[1];
+				$_height = $match[3];
 
-				if($width != '@')
+				if($_width != '@')
 				{
-					$width = ($width > $maxWidth) ? $maxWidth : ($width < $minWidth) ? $minWidth : $width;
-					array_push($inlineCss, "width:{$width}px");
+					$width = ($_width > $maxWidth) ? $maxWidth : ($_width < $minWidth) ? $minWidth : $_width;
 				}
 
-				if($height != '@')
+				if($_height != '@')
 				{
-					$height = ($height > $maxHeight) ? $maxHeight : ($height < $minHeight) ? $minHeight : $height;
-					array_push($inlineCss, "height:{$height}px");
+					$height = ($_height > $maxHeight) ? $maxHeight : ($_height < $minHeight) ? $minHeight : $_height;
 				}
 				
 				unset($options[$i]);
@@ -191,6 +188,10 @@ class Sedo_Stats_Listener_Bar
       				}
       			}
 		}
+
+		//Get width & height
+		array_push($inlineCss, "width:{$width}px");
+		array_push($inlineCss, "height:{$height}px");
 
 		list( 	$globalGrid,
 			$loadPointLabelsJs,
